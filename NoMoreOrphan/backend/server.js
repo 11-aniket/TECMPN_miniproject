@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const OrphanModel = require("./orphanModel");
 const DoctorModel = require("./doctorModel");
 const MedicalDetailModel = require("./medicalDetailModel");
+const AdoptionModel = require("./adoptionModel");
 const bcrypt = require("bcrypt");
 const app = express();
 app.use(cors());
@@ -283,6 +284,109 @@ app.post("/addMedicalDetail/:id", async (req, res) => {
       console.log("error occured ", err);
     });
 });
+
+app.put("/updateMedicalDetail/:id", async (req, res) => {
+  const id = req.params.id;
+  const bloodGroup = req.body.bloodGroup;
+  const allergies = req.body.allergies;
+  const symptoms = req.body.symptoms;
+  const diagonsis = req.body.diagonsis;
+  const treatment = req.body.treatment;
+  MedicalDetailModel.findByIdAndUpdate(id, {
+    orphanId: id,
+    bloodGroup: bloodGroup,
+    allergies: allergies,
+    symptoms: symptoms,
+    diagonsis: diagonsis,
+    treatment: treatment,
+  })
+    .then(() => {
+      res.send({
+        message: "Medical details is successfully updated",
+      });
+    })
+    .catch((err) => {
+      console.log("error occured ", err);
+    });
+});
+
+app.delete("/deleteMedicalRecord/:id", async (req, res) => {
+  const id = req.params.id;
+  MedicalDetailModel.findByIdAndDelete(id)
+    .then((data) => {
+      res.send({
+        message: "Deleted successfully",
+      });
+    })
+    .catch((err) => {
+      console.log("some error occured " + err);
+      res.send({
+        message: "Failed to delete",
+      });
+    });
+});
+
+// ADOPTION API//////////////////////////////////////////////////////////////////////////////////////////////
+
+app.get("/getAdoptionRequest", async (req, res) => {
+  try {
+    const AdoptionDetail = await AdoptionModel.find();
+    if (AdoptionDetail) {
+      res.send({
+        message: AdoptionDetail,
+      });
+    } else {
+      res.send("No medical details found");
+    }
+  } catch (error) {
+    console.log("some error occured" + error);
+  }
+});
+
+app.post("/addAdoptionRequest", async (req, res) => {
+  const pname = req.body.pname;
+  const uid = req.body.uid;
+  const phoneNo = req.body.phoneNo;
+  const email = req.body.email;
+  const address = req.body.address;
+  const message = req.body.message;
+  const registerAdoption = new AdoptionModel({
+    pname: pname,
+    uid: uid,
+    email: email,
+    phoneNo: phoneNo,
+    address: address,
+    message: message,
+  });
+  registerAdoption
+    .save()
+    .then(() => {
+      res.send({
+        message: "Adoption request is successfully added",
+      });
+    })
+    .catch((err) => {
+      console.log("error occured ", err);
+    });
+});
+
+app.delete("/deleteAdoptionRequest/:id", async (req, res) => {
+  const id = req.params.id;
+  AdoptionModel.findByIdAndDelete(id)
+    .then((data) => {
+      res.send({
+        message: "Deleted successfully",
+      });
+    })
+    .catch((err) => {
+      console.log("some error occured " + err);
+      res.send({
+        message: "Failed to delete",
+      });
+    });
+});
+
+// server listen address and port////////////////////////////////////////////////////////////////////////////
 
 app.listen(3000, () => {
   console.log("http://127.0.0.1:3000");
