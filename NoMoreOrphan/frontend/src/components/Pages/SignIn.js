@@ -1,42 +1,68 @@
-import React from 'react'
-import {FcGoogle} from 'react-icons/fc'
-import {SiFacebook} from 'react-icons/si'
+import {React, useEffect, useState} from 'react'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
+
 const SignIn = () => {
-    const navigate = useNavigate();
-    const navigateSignUp = () => {
-        navigate('/signup');
+     const navigate = useNavigate();
+     const navigatenewHome = () => {
+        //  navigate('/childgallery');
+        axios.post('',{
+            username:username,
+            password:password,
+            org:org,
+            role:role
+        })
     };
-    const navigatenewHome = () => {
-        navigate('/childgallery');
-    };
+
+    const[username, setUserName] = useState('');
+    const[password, setPassword] = useState('');
+    const[role, setRole] = useState('');
+    const[org, setOrg] = useState('');
+
   return (
     <>
-        <div className="relative w-full h-screen justify-center  bg-gray-900/80 ">
+         <div className="relative w-full h-screen justify-center  bg-gray-900/80 ">
             <img className='absolute w-full h-full object-cover mix-blend-overlay' src="../images/login.jpg" alt="" />
             <div className='flex justify-center items-center h-full'>
                 <form action="" className='max-w-[500px] w-full mx-auto bg-white p-8 rounded-2xl'>
                     <h2 className='text-4xl font-bold text-center py-4 border-x-8'>Orphan Foundation Center</h2>
                     <hr/>
-                    <div className='flex justify-between py-8 '>
-                        <p className='border shadow-lg hover:shadow-3xl border-black px-6 py-2 relative flex items-center hover:bg-slate-300 rounded-lg font-semibold '><FcGoogle className='mr-2'/> Google</p>
-                        <p className='border shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center border-black hover:bg-slate-300 rounded-lg font-semibold'>< SiFacebook className='mr-2'/> Facebook</p>
-                    </div>
+                    
                     <div className='flex flex-col mb-4 '>
                         <label>Username</label>
-                        <input className='border relative bg-gray-200 p-2' type="text"/>
+                        <input className='border relative bg-gray-200 p-2' value={username} onChange = {e=>setUserName(e.target.value)} type="text"/>
                     </div>
                     <div className='flex flex-col mb-4 '>
                         <label>Password</label>
-                        <input className='border relative bg-gray-200 p-2' type="password"/>
+                        <input className='border relative bg-gray-200 p-2' value={password} onChange = {e=>setPassword(e.target.value)} type="password"/>
                     </div>
+                    <div>
+                        <label>Select Role</label>
+                        <div className="relative w-full flex flex-col mb-4">
+                        <select className="w-full p-2 text-black bg-gray-200 border rounded-md shadow-sm hover:border hover:border-black" value={role} onChange={e=>setRole(e.target.value)}>
+                            <option>User</option>
+                            <option>Admin</option>
+                            <option>Doctor</option>
+                            <option>Parent</option>
+                        </select>
+                     </div>
+                    </div>
+                    <div>
+                        <label>Select Organization</label>
+                        <div className="relative w-full flex flex-col mb-4">
+                        <select className="w-full p-2 text-black bg-gray-200 border rounded-md shadow-sm hover:border hover:border-black" value={org} onChange={e=>setOrg(e.target.value)}>
+                            <option>Organization_1</option>
+                            <option>Organization_2</option>
+                        </select>
+                     </div>
+                    </div>
+                    
                     <button className='w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-800 relative text-white rounded-3xl' onClick={navigatenewHome}>Sign In </button>
-                    {/* <p className='ml-10 flex items-center mt-3'><input className='mr-2' type="checkbox" />Remember Me</p> */}
-                    <p className=' text-center relative w-full hover:underline cursor-pointer mt-2 hover:bg-slate-400 rounded-lg' onClick={navigateSignUp}>Not a Member? Sign UP now</p>
                 </form>
             </div>
-        </div>
+       </div>
+   
     </>
   )
 }
