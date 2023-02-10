@@ -1,6 +1,7 @@
 import React from 'react'
 import Sidenav from './SideNav'
 import { MdOutlineAddToPhotos } from 'react-icons/md'
+import { Link } from 'react-router-dom'
 
 const Newsletter = () => {
   return (
@@ -9,7 +10,7 @@ const Newsletter = () => {
     <div className='absolute left-64 top-16 space-y-4'>
     <div className=' pt-3 font-bold sm: text-sm md:text-base flex float-right mr-5'>
         <MdOutlineAddToPhotos  className='w-9 h-7 mt-2'/>
-                <a className='mt-3' href="">Add New NewsLetter</a>
+                <Link className='mt-3' to="/addnewsletter">Add New NewsLetter</Link>
     </div>
      <h1 className='text-3xl mr-2 px-5 font-extrabold border-solid border-2 border-black'>News Letter</h1>
      <p className='text-3xl font-bold underline text-center'>Orphan Foundataion Center</p>

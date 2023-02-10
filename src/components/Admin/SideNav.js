@@ -5,13 +5,13 @@ import { Link} from 'react-router-dom'
 function Sidenav  () {
   let Links = [
     // {name:"Home",link:"/childgallery"},
-    {name:"Home",link:"/childgallery"},
+    {name:"Home",link:"/admin"},
     {name:"Photo Gallery",link:"/photogallery"},
     {name:"Missions",link:"/missions"},
     {name:"News Letter",link:"/newsletter"},
     {name:"Feedbaack",link:"/feedback"},
     // {name:"Contact Us",link:"/contactus"},
-    {name:"Donation",link:"/"},
+    // {name:"Donation",link:"/"},
     {name:"Doctors",link:"/doctors"},
     {name:"Parents",link:"/parent_details"},
    ];
@@ -32,7 +32,7 @@ function Sidenav  () {
             <ul className='space-y-3'>
               {
                 Links.map((link)=>(
-                  <li key={link.name} className = 'hover:border-solid hover:border-2 hover:border-gray-500 md:m-2 text-xl md:px-2 '>
+                  <li key={link.name} className = 'hover:border-solid hover:border-2 hover:border-gray-500 w-fit md:m-2 text-xl md:pr-8 '>
                     <Link to ={link.link}>{link.name}</Link>
                   </li>
                 ))
