@@ -5,7 +5,6 @@ import StripeCheckout from 'react-stripe-checkout'
 const Donation = () => {
     const onToken =(token) =>{
         console.log(token);
-
     }
   return (
     <>
