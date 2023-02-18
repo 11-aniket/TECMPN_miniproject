@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2';
-import orphansData from './orphansData';
-import ListOrphans from './ListOrphans';
+import orphansData from '../Api/orphansData';
+import ListOrphans from '../Orphans/ListOrphans';
 import AddOrphans from './AddOrphans';
 import EditOrphans from './EditOrphans';
 import HeaderOrphans from './HeaderOrphans';

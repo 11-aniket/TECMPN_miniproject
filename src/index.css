@@ -499,3 +499,43 @@ a.full-button {
   position: center;
   padding-left: 35rem;
 }
+
+.padding{
+
+  font-size:14pt;
+  width:800px;
+  padding-left: 30rem;
+}
+
+.Blue{
+  color: rgb(49 46 129);
+}
+
+.b1{
+  border: none;
+    background: none;
+    color: none;
+    text-decoration: none;
+    font-size:14pt
+  }
+  
+  .b1:hover{
+  border: none;
+    background: none;
+    color: none;
+    text-decoration: none;
+  }
+  
+  .b1:focus{
+    border: none;
+    background: none;
+    color: none;
+    text-decoration: none;
+  }
+  .b1:active
+  {
+    border: none;
+    background: none;
+    color: none;
+    text-decoration: none;
+  }

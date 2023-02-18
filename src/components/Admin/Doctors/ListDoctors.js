@@ -37,20 +37,20 @@ function ListDoctors({ doctors, handleEdit, handleDelete }) {
                                 <td>{doctor.clinic_address} </td>
 
                                 <td className="text-right">
-                                    <button
+                                    <button2
                                         onClick={() => handleEdit(doctor.id)}
                                         className="button muted-button"
                                     >
                                         Edit
-                                    </button>
+                                    </button2>
                                 </td>
                                 <td className="text-left">
-                                    <button
+                                    <button2
                                         onClick={() => handleDelete(doctor.id)}
                                         className="button muted-button"
                                     >
                                         Delete
-                                    </button>
+                                    </button2>
                                 </td>
                             </tr>
                         ))

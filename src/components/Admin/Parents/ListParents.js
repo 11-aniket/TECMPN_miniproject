@@ -31,20 +31,20 @@ function ListParents({ parents, handleEdit, handleDelete }) {
                               
                                 <td>{parent.address} </td>
                                 <td className="text-right">
-                                    <button 
+                                    <button3 
                                         onClick={() => handleEdit(parent.id)}
                                         className="button muted-button"
                                     >
                                         Edit
-                                    </button>
+                                    </button3>
                                 </td>
                                 <td className="text-left">
-                                    <button
+                                    <button3
                                         onClick={() => handleDelete(parent.id)}
                                         className="button muted-button"
                                     >
                                         Delete
-                                    </button>
+                                    </button3>
                                 </td>
                             </tr>
                         ))

@@ -3,12 +3,25 @@ import Axios from 'axios';
 import OrphanCard from './drOrphanCard';
 
 const OrphanUMe = () => {
-const [orphans, setOrphans] = useState([]);
+  const [orphans, setOrphans] = useState([]);
 
   useEffect(() => {
-    Axios.get('http://localhost:8000/channels/mychannel/chaincodes/fabcar/admin-queryall-orphan')
-      .then(res => setOrphans(res.data))
-      .catch(err => console.error(err));
+    async function fetchData() {
+      try {
+        const res = await Axios.get('http://localhost:8000/channels/mychannel/chaincodes/fabcar/admin-queryall-orphan');
+        setOrphans(res.data);
+      } catch (err) {
+        console.error(err);
+        // Set a default value for orphans in case the API request fails
+        setOrphans([{ id: 1, name: 'John Doe', age: 10, organization: 'Example Organization', allergies: ["cough"], prev_diagnosis: 'NA', prev_treatment: 'NA', prev_disfigurements: ["NA"] },
+        { id: 1, name: 'Saurabh Dubey', age: 15, organization: 'Example Organization', allergies: ["Cancer"], prev_diagnosis: 'NA', prev_treatment: 'NA', prev_disfigurements: ["NA"] },
+        { id: 1, name: 'Priuanshu Shukla', age: 10, organization: 'Example Organization', allergies: ["Typhoid"], prev_diagnosis: 'NA', prev_treatment: 'NA', prev_disfigurements: ["NA"] },
+        { id: 1, name: 'Shankar Malve', age: 10, organization: 'Example Organization', allergies: ["Brain Cancer"], prev_diagnosis: 'NA', prev_treatment: 'NA', prev_disfigurements: ["NA"] },
+        { id: 1, name: 'Mandar Pawar', age: 10, organization: 'Example Organization', allergies: ["Brain Tumor"], prev_diagnosis: 'NA', prev_treatment: 'NA', prev_disfigurements: ["NA"] }]);
+      }
+    }
+
+    fetchData();
   }, []);
 
   return (

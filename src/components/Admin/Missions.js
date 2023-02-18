@@ -10,7 +10,7 @@ const Missions = () => {
     <div className='absolute left-64 top-16 space-y-4 w-10/12 hover:cursor-pointer '>
     <div className=' pt-3 font-bold sm: text-sm md:text-base flex float-right mr-5'>
         <RiPlayListAddLine className='w-9 h-7 mt-2' />
-            <Link className='mt-3' to="/addmissions">Add Missions</Link>
+            <Link className='mt-3' to="../AddMission">Add Missions</Link>
     </div>
         <h1 className='text-3xl mr-2 px-4 font-extrabold border-solid border-2 border-black'>Missions</h1>
         <p className='text-3xl font-bold underline text-center '>Current Missions</p>

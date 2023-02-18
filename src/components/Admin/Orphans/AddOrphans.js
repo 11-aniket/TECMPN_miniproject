@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import Swal from 'sweetalert2';
 
 function AddOrphans({ orphans, setOrphans, setIsAdding }) {
-    const [image, setImage] = useState('');
+    /*const [image, setImage] = useState('');*/
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
     const [year_of_enroll, setYear_Of_Enroll] = useState('');
@@ -17,7 +17,7 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
 
     const handleAdd = e => {
         e.preventDefault();
-        if (!image||!name || !age ||!year_of_enroll||!adoption_status) {
+        if (/*!image||*/!name || !age ||!year_of_enroll||!adoption_status) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -29,7 +29,7 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
         const id = orphans.length + 1;
         const newOrphan = {
             id,
-            image,
+            /*image,*/
             name,
             age,
             year_of_enroll,
@@ -53,16 +53,6 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
         <div className="small-container">
             <form onSubmit={handleAdd}>
                 <h1>Add Orphan</h1>
-
-                <label htmlFor="image"> Image </label>
-                <input
-                    id="image"
-                    type="file"
-                    name="image"
-                    value={image}
-                    onChange={e => setImage(e.target.value)}
-                />
-
                 <label htmlFor="name"> Name </label>
                 <input
                     id="name"

@@ -20,7 +20,7 @@ function MyNavbar() {
 
   return (
     <>
-      <nav className=" fixed top-0 z-10 w-full bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900">
+      <nav className=" fixed top-0 z-10 w-full text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 mx-1 rounded-2xl">
         <div className="flex md:justify-between justify-between">
           <div className=" flex mr-3 h-6 sm:h-9">
             <span className="self-center text-xl font-semibold  whitespace-nowrap dark:text-white cursor-pointer">
@@ -50,7 +50,7 @@ function MyNavbar() {
               </li>
             ))}
             <button
-              className="md:ml-10 self-center w-32 text-lg hover:text-xl font-semibold whitespace-nowrap dark:text-gray-900 bg-white rounded-md px-2 py-1 cursor-pointer hover:bg-gray-200 transform transition duration-500 hover:scale-110"
+              className="md:ml-10 self-center w-32 text-lg hover:text-xl font-semibold whitespace-nowrap text-gray-800  hover:text-gray-900 bg-white rounded-md px-2 py-1 cursor-pointer hover:bg-gray-200 transform transition duration-500 hover:scale-110"
               onClick={navigateLogin}
             >
               Login

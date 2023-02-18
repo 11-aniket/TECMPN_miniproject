@@ -49,10 +49,7 @@ function ParentDashboard() {
 
 
     return (
-        <div className='max-width: 1200px;
-        padding: 0 1rem;
-        margin-left: auto;
-        margin-right: auto;'>
+        <div className='container'>
             {/* List */}
             {!isAdding && !isEditing && (
                 <>

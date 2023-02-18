@@ -22,7 +22,7 @@ function DrNavbar() {
   return (
     <>
       <topnav
-        className="static flex top-0 z-10 min-w-min bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 mx-1 rounded-2xl0 "
+        className="static flex top-0 z-10 min-w-min text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 mx-1 rounded-2xl0 "
         onClick={closeProfile}
       >
         <div className=" mr-3 sm:h-9 container md:justify-between justify-between mx-auto">

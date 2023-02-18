@@ -9,7 +9,7 @@ function Sidenav  () {
     {name:"Photo Gallery",link:"/photogallery"},
     {name:"Missions",link:"/missions"},
     {name:"News Letter",link:"/newsletter"},
-    {name:"Feedbaack",link:"/feedback"},
+    {name:"Feedback",link:"/feedback"},
     // {name:"Contact Us",link:"/contactus"},
     // {name:"Donation",link:"/"},
     {name:"Doctors",link:"/doctors"},
@@ -18,7 +18,7 @@ function Sidenav  () {
     let [open,setOpen] = useState(false);
   return (
     <>
-    <topnav className=" fixed flex top-0 z-10 w-screen bg-white border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 mx-1 rounded-2xl ">
+    <topnav className=" fixed flex top-0 z-10 w-screen text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 mx-1 rounded-2xl ">
         <div className=" mr-3 h-6 sm:h-9 container flex-wrap md:justify-between justify-between mx-auto">
            <span className="self-center text-xl font-semibold  whitespace-nowrap dark:text-white cursor-pointer">Orphanage Foundation Center</span>
         </div>

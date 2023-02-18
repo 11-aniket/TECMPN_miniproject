@@ -40,8 +40,8 @@ const Slider = () => {
       <div className="flex relative bg-black">   
             <img className='object-cover opacity-50 md:h-[730px] h-96 w-full' src={imageSlider[currentIndex]} alt="" />
             <div className=" z-[3] absolute w-full top-1/2 transform -translate-y-1 py-2 px-4 flex justify-between items-center text-2xl text-white font-extrabold">
-                <button className='hover:underline hover:text-gray-100 hover:font-bold'onClick={handleOnPrevClick}>Prev</button>
-                <button className='hover:underline hover:text-gray-300 hover:font-bold mr-4'onClick={handleOnNextClick}>Next</button>
+                <button className='b1 hover:underline hover:text-gray-100 hover:font-bold-100 mr-4'onClick={handleOnPrevClick}>Prev</button>
+                <button className='b1 hover:underline hover:text-gray-100 hover:font-bold-100 mr-4'onClick={handleOnNextClick}>Next</button>
             </div>
             <div className=' absolute w-full h-3/4 justify-end top-1/4  transform -translate-y-1 py-2 px-3 flex flex-col items-center md:text-2xl text-lg text-white font-semibold'>
                 <p className=' text-center w-full md:text-3xl text-xl text-white z-0 '>

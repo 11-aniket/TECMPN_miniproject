@@ -40,9 +40,9 @@ const Doctor_Details = () => {
         </div>
         <div className=' py-3 font-bold sm: text-sm md:text-base flex absolute right-[2%]'>
                 <TiUserAdd className='w-9 h-7 -mt-1'/>
-                <a className='ml-1 mr-8' href="">Add New Doctor</a>
+                <a className='ml-1 mr-8' href="../AddDoctors">Add New Doctor</a>
                 <TiUserDelete className='w-8 h-7 -mt-1'/>
-                <a className='ml-1' href="">Delete Doctor</a>
+                <a className='ml-1' href="../DoctorDashboard">Delete Doctor</a>
             </div>
         {/* <doctorNavbar filterItem={filterItem} doctorlist={doctorlist} /> */}
         <DoctorNavbar filterItem={filterItem} doctorlist={doctorlist} />

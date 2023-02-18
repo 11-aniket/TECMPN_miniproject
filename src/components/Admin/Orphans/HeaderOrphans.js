@@ -5,7 +5,7 @@ function HeaderOrphans({ setIsAdding }) {
         <header>
             <h1>Orphanage Home Center</h1>
             <div style={{ marginTop: '30px', marginBottom: '18px' }}>
-                <button onClick={() => setIsAdding(true)} className='round-button'>Add Button</button>
+                <button onClick={() => setIsAdding(true)} className='round-button border-radius: 40px'>Add Orphans</button>
             </div>
         </header>
     )

@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
 
     const id = selectedOrphan.id;
-    const [image, setImage] = useState(selectedOrphan.image);
+    // const [image, setImage] = useState(selectedOrphan.image);
     const [name, setName] = useState(selectedOrphan.name);
     const [age, setAge] = useState(selectedOrphan.age);
     const [year_of_enroll, setYear_Of_Enroll] = useState(selectedOrphan.year_of_enroll);
@@ -15,7 +15,7 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
     const handleUpdate = e => {
         e.preventDefault();
 
-        if (!image||!name || !age ||!year_of_enroll||!adoption_status) {
+        if (/*!image||*/!name || !age ||!year_of_enroll||!adoption_status) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -26,7 +26,7 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
 
         const orphan = {
             id,
-            image,
+            // image,
             name,
             age,
             year_of_enroll,
@@ -57,14 +57,14 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
         <div className="small-container">
             <form onSubmit={handleUpdate}>
                 <h1>Edit Orphan</h1>
-                <label htmlFor="image"> Image </label>
+                {/* <label htmlFor="image"> Image </label>
                 <input
                     id="image"
                     type="file"
                     name="image"
                     value={image}
                     onChange={e => setImage(e.target.value)}
-                />
+                /> */}
 
                 <label htmlFor="name"> Name </label>
                 <input

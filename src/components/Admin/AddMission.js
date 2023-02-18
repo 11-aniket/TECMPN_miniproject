@@ -52,7 +52,7 @@ function AddMission({ missions, setMissions, setIsAdding }) {
     return (
         <div className="small-container">
             <form onSubmit={handleAdd}>
-                <h1>Add Mission</h1>
+                <h1 className='Add'>Add Mission</h1>
 
                 <label htmlFor="image"> Image </label>
                 <input

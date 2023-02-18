@@ -41,10 +41,9 @@ function AddNewsletter ({News, setNews, setIsAdding})  {
     });
   }
   return (
-    <div classname='small-container'>
-      
-      <form onSubmit={handleAdd}>
-        <h1>Add Newsletter</h1>
+    <div classname=''>
+      <form className='small-container' onSubmit={handleAdd}>
+        <h1 className='Add'>Add Newsletter</h1>
         <table htmlFor="month">Month</table>
         <input
         id="month"

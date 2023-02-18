@@ -7,7 +7,7 @@ import Footer from '../Pages/Footer'
 const Donate = () => {
   const navigate = useNavigate();
     const navigateDonateform= () => {
-        navigate('/donateform');
+        navigate('/Donation');
     };
     
   return (

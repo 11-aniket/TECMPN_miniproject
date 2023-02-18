@@ -8,7 +8,7 @@ const ParentNavbar = ({filterItem,parenttlist}) => {
                 {parenttlist.map((curElem)=>{
                     return (
                         <button 
-                            className='p-0 m-0 hover:underline' 
+                            className='p-0 m-0 hover:underline bg-slate-500 border-slate-500 hover:bg-slate-500 hover:border-slate-500' 
                             onClick={() => filterItem(curElem)}>
                             {curElem}
                         </button>

@@ -52,7 +52,7 @@ const AddPhotoGallery= () => {
           </p>
         ) : (
           
-          <button 
+          <button2 
             className="upload-btn"
             onClick={() => {
               console.log(selectedImages);
@@ -61,7 +61,7 @@ const AddPhotoGallery= () => {
           >
             UPLOAD {selectedImages.length} IMAGE
             {selectedImages.length === 1 ? "" : "S"}
-          </button >
+          </button2 >
           
          
           
@@ -73,9 +73,9 @@ const AddPhotoGallery= () => {
             return (
               <div key={image} className="image2">
                 <img src={image} height="200" alt="upload" />
-                <button className="button2" onClick={() => deleteHandler(image)}>
+                <button2 className="button2" onClick={() => deleteHandler(image)}>
                   delete image
-                </button>
+                </button2>
                 <p>{index + 1}</p>
               </div>
             );

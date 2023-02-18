@@ -60,7 +60,7 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
     return (
         <div className="small-container">
             <form onSubmit={handleAdd}>
-                <h1>Add Doctor</h1>
+                <h1 className='Add'>Add Doctor</h1>
                 <label htmlFor="name"> Name </label>
                 <input
                     id="name"
