@@ -1,3 +1,22 @@
+/*
+
+import axios from 'axios';
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const data = response.data;
+    const dataArray = Array.from(data); // Converting response data into an array
+    return dataArray;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+export default fetchData;
+
+*/
 const doctor = [
     {
         id:1,
