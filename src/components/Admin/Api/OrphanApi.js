@@ -1,4 +1,4 @@
-
+/*
 import axios from 'axios';
 
 const fetchData = async () => {
@@ -16,7 +16,7 @@ const fetchData = async () => {
 
 export default fetchData;
 
-/*
+*/
 const orphan = [
     {
         id:1,
@@ -69,4 +69,4 @@ const orphan = [
 ];
 
 export default orphan;
-*/
+//  */

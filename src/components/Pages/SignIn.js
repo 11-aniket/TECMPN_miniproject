@@ -14,36 +14,7 @@ const SignIn = () => {
       role: role,
     };
     console.log(args); // Log the args object
-  
-  /*   axios.defaults.timeout = 10000;
-    axios.post("http://localhost:8000/login", {args} )
-      .then((res) => {
-        // Handle response from server
-        const token = res.data.token;
-        console.log(token);
-        Cookies.set("token", token); // Store token as cookie
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Add token to request headers
-  
-        // Navigate user to appropriate page based on role
-        switch (role) {
-          case "Admin":
-            navigate("/childgallery");
-            break;
-          case "Doctor":
-            navigate("/drhome");
-            break;
-          case "Parent":
-            navigate("/parent");
-            break;
-          default:
-            navigate("/");
-            break;
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };  */
+
   axios.defaults.timeout = 10000;
     axios.post("http://localhost:8000/login", {args} )
       .then((res) => {
