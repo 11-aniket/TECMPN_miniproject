@@ -1,23 +1,85 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const SignIn = () => {
-  const navigate = useNavigate();
+  const navigate =  useNavigate();
   const navigatenewHome = () => {
-    navigate("/childgallery");
-    let data = {
+    console.log("navigatenewHome");
+     const args = {
       username: username,
       password: password,
       org: org,
       role: role,
     };
-    console.log(data);
-    // axios.post("", data).then((res) => {
-    //   console.log(res);
-    // });
+    console.log(args); // Log the args object
+  
+  /*   axios.defaults.timeout = 10000;
+    axios.post("http://localhost:8000/login", {args} )
+      .then((res) => {
+        // Handle response from server
+        const token = res.data.token;
+        console.log(token);
+        Cookies.set("token", token); // Store token as cookie
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Add token to request headers
+  
+        // Navigate user to appropriate page based on role
+        switch (role) {
+          case "Admin":
+            navigate("/childgallery");
+            break;
+          case "Doctor":
+            navigate("/drhome");
+            break;
+          case "Parent":
+            navigate("/parent");
+            break;
+          default:
+            navigate("/");
+            break;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };  */
+  axios.defaults.timeout = 10000;
+    axios.post("http://localhost:8000/login", {args} )
+      .then((res) => {
+        const token = res.data.token;
+        localStorage.setItem('token',token);
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      const token = localStorage.getItem('token');
+      axios.get("",{
+       headers:{
+          'Authorization' : `Bearer ${token}`
+        }  
+      })
+      .then(res=>{
+        console.log(res.data);
+      })
+      
+        switch (role) {
+          case "Admin":
+            navigate("/childgallery");
+            break;
+          case "Doctor":
+            navigate("/drhome");
+            break;
+          case "Parent":
+            navigate("/parent");
+            break;
+          default:
+            navigate("/");
+            break;
+        }
+      
   };
-
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("Admin");

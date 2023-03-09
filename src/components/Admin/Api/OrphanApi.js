@@ -1,11 +1,11 @@
-/*
 
 import axios from 'axios';
 
 const fetchData = async () => {
   try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
+    const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-orphan');
     const data = response.data;
+    console.log(data);
     const dataArray = Array.from(data); // Converting response data into an array
     return dataArray;
   } catch (error) {
@@ -16,7 +16,7 @@ const fetchData = async () => {
 
 export default fetchData;
 
-*/
+/*
 const orphan = [
     {
         id:1,
@@ -69,3 +69,4 @@ const orphan = [
 ];
 
 export default orphan;
+*/
