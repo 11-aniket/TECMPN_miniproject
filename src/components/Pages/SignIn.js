@@ -37,7 +37,7 @@ const SignIn = () => {
       
         switch (role) {
           case "Admin":
-            navigate("/childgallery");
+            navigate("/admin");
             break;
           case "Doctor":
             navigate("/drhome");

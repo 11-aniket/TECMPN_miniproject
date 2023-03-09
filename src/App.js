@@ -53,14 +53,13 @@ function App() {
       <Route path="/aboutus" element={<AboutUs/>} />
       <Route path="/donate" element={< Donate/>} />
       {/* Admin pages */}
-      <Route path="/childgallery" element={<OrphanDetails/>} />
+      <Route path="/admin" element={<OrphanDetails/>} />
       <Route path="/newsletter" element={<Newsletter/>} />
       <Route path="/missions" element={<Missions/>} />
       <Route path="/feedback" element={<Feedback/>} />
       <Route path="/photogallery" element={<PhotoGallery/>} />
       <Route path="/doctors" element={<Doctor_Details/>} />
       <Route path="/parent_details" element={<Parentt_Details/>} />
-      <Route path="/admin" element={<OrphanDetails/>} />
       <Route path="/AddPhotoGallery" element={<AddPhotoGallery/>}/>
       <Route path="/Donation" element={<Donation/>}/>
       <Route path="/AddMission" element={<AddMission/>}/>

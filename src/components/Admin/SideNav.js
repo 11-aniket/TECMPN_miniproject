@@ -4,14 +4,11 @@ import { Link} from 'react-router-dom'
 
 function Sidenav  () {
   let Links = [
-    // {name:"Home",link:"/childgallery"},
     {name:"Home",link:"/admin"},
     {name:"Photo Gallery",link:"/photogallery"},
     {name:"Missions",link:"/missions"},
     {name:"News Letter",link:"/newsletter"},
     {name:"Feedback",link:"/feedback"},
-    // {name:"Contact Us",link:"/contactus"},
-    // {name:"Donation",link:"/"},
     {name:"Doctors",link:"/doctors"},
     {name:"Parents",link:"/parent_details"},
    ];
