@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function DrNavbar() {
   const navigate = useNavigate();
-  const navigateLogin = () => {
-    navigate('/');
-  };
+  // const navigateLogin = () => {
+  //   navigate('/');
+  // };
 
   const [open, setOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
@@ -13,6 +13,19 @@ function DrNavbar() {
   const closeProfile = () => {
     setProfileOpen(false);
   };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    window.history.pushState(null, null, '/');
+    navigate('/signin');
+  };
+
+  useEffect(() => {
+    const isLoggedIn = localStorage.getItem('token');
+    if (!isLoggedIn) {
+      navigate('/signin');
+    }
+  }, [navigate]);
 
   let Links = [
     { name: 'Profile', link: '/drhome' },
@@ -65,9 +78,14 @@ function DrNavbar() {
         }
       </ul>
 
-      <button className=" ml-2 relative w-32 text-lg hover:text-xl font-semibold whitespace-nowrap dark:text-gray-800 bg-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-700 transform transition duration-500 hover:scale-110 hover:text-white" onClick={navigateLogin}>
+      {/* <button className=" ml-2 relative w-32 text-lg hover:text-xl font-semibold whitespace-nowrap dark:text-gray-800 bg-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-700 transform transition duration-500 hover:scale-110 hover:text-white" onClick={navigateLogin}>
         Log-Out
-      </button>
+      </button> */}
+      <div className=''>
+          <button className="bg-red-500 text-white py-2 px-4  rounded-xl w-3/5" onClick={handleLogout}>
+             Logout
+          </button>
+      </div>
   </div>
   <div class=" absolute left-56 top-16 h-5/6 w-0.5 md:bg-gray-600 lg:bg-gray-600 bg-white"></div>
 </sidenav>

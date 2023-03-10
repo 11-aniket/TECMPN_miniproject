@@ -6,7 +6,6 @@ import Cookies from "js-cookie";
 const SignIn = () => {
   const navigate =  useNavigate();
   const navigatenewHome = () => {
-    console.log("navigatenewHome");
      const args = {
       username: username,
       password: password,
@@ -20,7 +19,7 @@ const SignIn = () => {
       .then((res) => {
         const token = res.data.token;
         localStorage.setItem('token',token);
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+        localStorage.setItem('role',res.data.role);
       })
       .catch((error) => {
         console.log(error);
@@ -34,7 +33,7 @@ const SignIn = () => {
       .then(res=>{
         console.log(res.data);
       })
-      
+     
         switch (role) {
           case "Admin":
             navigate("/admin");
