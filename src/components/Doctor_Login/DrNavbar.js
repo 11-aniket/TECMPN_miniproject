@@ -3,9 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 function DrNavbar() {
   const navigate = useNavigate();
-  // const navigateLogin = () => {
-  //   navigate('/');
-  // };
 
   const [open, setOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);

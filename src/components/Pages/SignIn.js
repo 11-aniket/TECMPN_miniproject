@@ -1,11 +1,12 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const SignIn = () => {
   const navigate =  useNavigate();
-  const navigatenewHome = () => {
+  const navigatenewHome = (e) => {
+    console.log(e); 
+    e.preventDefault();
      const args = {
       username: username,
       password: password,
@@ -17,23 +18,9 @@ const SignIn = () => {
   axios.defaults.timeout = 10000;
     axios.post("http://localhost:8000/login", {args} )
       .then((res) => {
+        if(res.status == 200){
         const token = res.data.token;
         localStorage.setItem('token',token);
-        localStorage.setItem('role',res.data.role);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-      const token = localStorage.getItem('token');
-      axios.get("",{
-       headers:{
-          'Authorization' : `Bearer ${token}`
-        }  
-      })
-      .then(res=>{
-        console.log(res.data);
-      })
-     
         switch (role) {
           case "Admin":
             navigate("/admin");
@@ -48,6 +35,21 @@ const SignIn = () => {
             navigate("/");
             break;
         }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+      const token = localStorage.getItem('token');
+
+      // axios.get("",{
+      //  headers:{
+      //     'Authorization' : `Bearer ${token}`
+      //   }  
+      // })
+      //  .then(res=>{
+       
+      //  })
       
   };
   const [username, setUserName] = useState("");
@@ -121,7 +123,7 @@ const SignIn = () => {
 
             <button
               className="w-full py-3 mt-8 bg-indigo-600 hover:bg-indigo-800 relative text-white rounded-3xl"
-              onClick={navigatenewHome}
+              onClick={(e)=>navigatenewHome(e)}
             >
               Sign In{" "}
             </button>

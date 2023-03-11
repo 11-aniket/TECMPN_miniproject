@@ -1,22 +1,30 @@
-/*
+// import axios from 'axios';
 
-import axios from 'axios';
+// const doctor = async () => {
+//   try {
+//     // const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-doctor');
+//     const token = localStorage.getItem('token');
+//     const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-doctor-org',{
+//       headers: {
+//         Authorization: `Bearer ${token}` // Pass the token as an authorization header
+//       }
+//     });
+//     const data = response.data.result;
+//     const doctorsArray = data.map((doctor,index) => ({
+//       id: (index+1),
+//       image: '../images/doctor.jpeg',
+//       name: `${doctor.firstName} ${doctor.lastName}`,
+//       age: doctor.age,
+//       year_of_enroll: doctor.year_of_enroll,
+//       years_of_experience: doctor.experience,
+//       specialization: doctor.speciality
+//     }));
+//     console.log(doctorsArray);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
-const fetchData = async () => {
-  try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/users');
-    const data = response.data;
-    const dataArray = Array.from(data); // Converting response data into an array
-    return dataArray;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-
-export default fetchData;
-
-*/
 const doctor = [
     {
         id:1,
@@ -47,4 +55,4 @@ const doctor = [
   },
   ];
   
-  export default doctor
+   export default doctor

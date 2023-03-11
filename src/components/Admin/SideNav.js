@@ -51,7 +51,7 @@ function Sidenav() {
             ))}
           </ul>
         </div>
-        <div className='pt-96'>
+        <div className='pt-80'>
           <button className="bg-red-500 text-white py-2 px-4  rounded-xl w-3/5" onClick={handleLogout}>
              Logout
           </button>
