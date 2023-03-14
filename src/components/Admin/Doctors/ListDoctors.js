@@ -7,15 +7,15 @@ function ListDoctors({ doctors, handleEdit, handleDelete }) {
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Name</th>
+                        <th>FisrtName</th>
+                        <th>LastName</th>
                         <th>Age</th>
-                        <th>Phone No</th>
-                        <th>Address</th>
+                        <th>Organisation</th>
                         <th>Speciality</th>
                         <th>Qualification</th>
-                        <th>Experience_In_Years</th>
-                        <th>Awards</th>
-                        <th>Clinic_Address</th>
+                        <th>Experience</th>
+                        <th>Phone No</th>
+                        <th>Personal Address</th>
                         <th colSpan={2} className="text-center">
                             Actions
                         </th>
@@ -26,15 +26,15 @@ function ListDoctors({ doctors, handleEdit, handleDelete }) {
                         doctors.map((doctor, i) => (
                             <tr key={doctor.id}>
                                 <td>{i + 1}</td>
-                                <td>{doctor.name}</td>
+                                <td>{doctor.firstName}</td>
+                                <td>{doctor.lasttName}</td>
                                 <td>{doctor.age}</td>
-                                <td>{doctor.phoneno}</td>
-                                <td>{doctor.address} </td>
+                                <td>{doctor.org}</td>
                                 <td>{doctor.speciality} </td>
                                 <td>{doctor.qualification} </td>
-                                <td>{doctor.experience_in_years} </td>
-                                <td>{doctor.awards} </td>
-                                <td>{doctor.clinic_address} </td>
+                                <td>{doctor.experience} </td>
+                                <td>{doctor.phoneNo} </td>
+                                <td>{doctor.personalAddress} </td>
 
                                 <td className="text-right">
                                     <button2

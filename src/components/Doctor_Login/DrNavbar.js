@@ -51,41 +51,34 @@ function DrNavbar() {
         </div>
       </topnav>
       <sidenav
-        className={`md:flex md:items-center md:space-x-5 md:py-0 pb-8 md:px-0 px-5 flex m-4 py-6 absolute md:static md:z-auto z-[4] md:w-3/5 left-0 top-0 md:my-0 my-14 md:mx-0 mx-1 w-fit transition-all duration-500 ease-in rounded-2xl ${
-          open ? 'top-0' : '-top-[1000px]'
-        }`}
-      >
-        <div
-          className='flex flex-col cursor-pointer sm:text-white sm:bg-slate-600 md:bg-white md:text-black font-semibold md:w-1/4 mx-2 sm:w-1/2 space-y-3 gap-y-96'
+  className={`md:flex md:items-center md:space-x-5 md:py-0 pb-8 md:px-0 px-5 flex m-4 py-6 absolute md:static md:z-auto z-[4] md:w-1/6 left-0 top-0 md:my-0 my-14 md:mx-0 mx-1 w-fit transition-all duration-500 ease-in rounded-2xl ${
+    open ? 'top-0' : '-top-[1000px]'
+  }`}
+  style={{ borderRight: '2px solid black' }} // added right-side border
+>
+  <div
+    className='flex flex-col cursor-pointer sm:text-white sm:bg-slate-600 md:bg-white md:text-black font-semibold w-11/12 space-y-3 gap-y-96'>
+    <ul className='space-y-3'>
+      {Links.map((link) => (
+        <li
+          key={link.name}
+          className='hover:border-solid hover:border-gray-500 hover:w-full hover:pl-2 md:m-2 text-xl '
         >
-          <ul className='space-y-3'>
-            {Links.map((link) => (
-              <li
-                key={link.name}
-                className='hover:border-solid hover:border-2 hover:border-gray-500 md:m-2 text-xl '
-              >
-                <Link
-                  to={link.link}
-                  onClick={() => setProfileOpen(true)}
-                >
-                  {link.name}
-                </Link>
-              </li>
-          ))
-        }
-      </ul>
-
-      {/* <button className=" ml-2 relative w-32 text-lg hover:text-xl font-semibold whitespace-nowrap dark:text-gray-800 bg-gray-400 rounded-md px-2 py-1 cursor-pointer hover:bg-gray-700 transform transition duration-500 hover:scale-110 hover:text-white" onClick={navigateLogin}>
-        Log-Out
-      </button> */}
-      <div className=''>
-          <button className="bg-red-500 text-white py-2 px-4  rounded-xl w-3/5" onClick={handleLogout}>
-             Logout
-          </button>
-      </div>
+          <Link to={link.link} onClick={() => setProfileOpen(true)}>
+            {link.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+    <div className=''>
+      <button className='bg-red-500 text-white py-2 px-4 rounded-xl w-3/5' onClick={handleLogout}>
+        Logout
+      </button>
+    </div>
   </div>
-  <div class=" absolute left-56 top-16 h-5/6 w-0.5 md:bg-gray-600 lg:bg-gray-600 bg-white"></div>
 </sidenav>
+
+
 </>)
 }
 

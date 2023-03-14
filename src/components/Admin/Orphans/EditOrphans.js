@@ -4,18 +4,18 @@ import Swal from 'sweetalert2';
 function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
 
     const id = selectedOrphan.id;
-    // const [image, setImage] = useState(selectedOrphan.image);
     const [name, setName] = useState(selectedOrphan.name);
-    const [age, setAge] = useState(selectedOrphan.age);
-    const [year_of_enroll, setYear_Of_Enroll] = useState(selectedOrphan.year_of_enroll);
-    const [adoption_status, setAdoption_Status] = useState(selectedOrphan.adoption_status);
+    const [gender, setGender] = useState(selectedOrphan.gender);
+    const [dob, setDob] = useState(selectedOrphan.dob);
+    const [yearOfEnroll, setYearOfEnroll] = useState(selectedOrphan.yearOfEnroll);
+    const [isAdopted, setIsAdopted] = useState(selectedOrphan.isAdopted);
+    const [org, setOrg] = useState(selectedOrphan.setOrg);
+    const [background, setBackground] = useState(selectedOrphan.setBackground);
 
-    
-    
     const handleUpdate = e => {
         e.preventDefault();
 
-        if (/*!image||*/!name || !age ||!year_of_enroll||!adoption_status) {
+        if (!name ||!gender || !dob ||!yearOfEnroll||!isAdopted ||!org||!background) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -26,12 +26,13 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
 
         const orphan = {
             id,
-            // image,
             name,
-            age,
-            year_of_enroll,
-            adoption_status
-           
+            gender,
+            dob,
+            yearOfEnroll,
+            isAdopted,
+            org,
+            background
         };
 
         for (let i = 0; i < orphans.length; i++) {
@@ -57,15 +58,6 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
         <div className="small-container">
             <form onSubmit={handleUpdate}>
                 <h1>Edit Orphan</h1>
-                {/* <label htmlFor="image"> Image </label>
-                <input
-                    id="image"
-                    type="file"
-                    name="image"
-                    value={image}
-                    onChange={e => setImage(e.target.value)}
-                /> */}
-
                 <label htmlFor="name"> Name </label>
                 <input
                     id="name"
@@ -74,31 +66,53 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
-                <label htmlFor="age">Age</label>
+                <label htmlFor="gender"> Gender </label>
                 <input
-                    id="age"
-                    type="number"
-                    name="age"
-                    value={age}
-                    onChange={e => setAge(e.target.value)}
-                />
-
-                <label htmlFor="year_of_enroll">Year_Of_Enroll</label>
-                <input
-                    id="year_of_enroll"
-                    type="number"
-                    name="year_of_enroll"
-                    value={year_of_enroll}
-                    onChange={e => setYear_Of_Enroll(e.target.value)}
-                    />
-
-                <label htmlFor="adoption_status">Adoption_Status</label>
-                <input
-                    id="adoption_status"
+                    id="gender"
                     type="text"
-                    name="adoption_status"
-                    value={adoption_status}
-                    onChange={e => setAdoption_Status(e.target.value)}
+                    name="gender"
+                    value={gender}
+                    onChange={e => setGender(e.target.value)}
+                />
+                <label htmlFor="dob">Dob</label>
+                <input
+                    id="dob"
+                    type="date"
+                    name="dob"
+                    value={dob}
+                    onChange={e => setDob(e.target.value)}
+                />
+                <label htmlFor="yearOfEnroll">YearOfEnroll</label>
+                <input
+                    id="yearOfEnroll"
+                    type="number"
+                    name="yearOfEnroll"
+                    value={yearOfEnroll}
+                    onChange={e => setYearOfEnroll(e.target.value)}
+                    />
+                <label htmlFor="isAdopted">IsAdopted</label>
+                <input
+                    id="isAdopted"
+                    type="text"
+                    name="isAdopted"
+                    value={isAdopted}
+                    onChange={e => setIsAdopted(e.target.value)}
+                />
+                <label htmlFor="org">Organisation</label>
+                <input
+                    id="org"
+                    type="text"
+                    name="org"
+                    value={org}
+                    onChange={e => setOrg(e.target.value)}
+                />
+                <label htmlFor="background">Background</label>
+                <input
+                    id="background"
+                    type="text"
+                    name="background"
+                    value={background}
+                    onChange={e => setBackground(e.target.value)}
                 />
 
                 <div style={{ marginTop: '30px' }}>

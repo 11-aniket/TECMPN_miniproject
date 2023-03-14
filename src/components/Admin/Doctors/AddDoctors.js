@@ -3,15 +3,15 @@ import Swal from 'sweetalert2';
 
 function AddDoctors({ doctors, setDoctors, setIsAdding }) {
 
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [age, setAge] = useState('');
-    const [phoneno, setPhoneNo] = useState('');
-    const [address, setAddress] = useState('');
+    const [org, setOrg] = useState('');
     const [speciality, setSpeciality] = useState('');
     const [qualification, setQualification] = useState('');
-    const [experience_in_years, setExperience_In_Years] = useState('');
-    const [awards, setAwards] = useState('');
-    const [clinic_address, setClinic_Address] = useState('');
+    const [experience, setExperience] = useState('');
+    const [phoneNo, setPhoneNo] = useState('');
+    const [personalAddress, setPersonalAddress] = useState('');
 
     const textInput = useRef(null);
 
@@ -21,7 +21,7 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
 
     const handleAdd = e => {
         e.preventDefault();
-        if (!name || !age ||!phoneno || !address||!speciality||!qualification||!experience_in_years||!awards||!clinic_address) {
+        if (!firstName || !lastName || !age || !org ||!speciality||!qualification||!experience||!phoneNo || !personalAddress) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -33,15 +33,15 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
         const id = doctors.length + 1;
         const newDoctor = {
             id,
-            name,
+            firstName,
+            lastName,
             age,
-            phoneno,
-            address,
+            org,
             speciality,
             qualification,
-            experience_in_years,
-            awards,
-            clinic_address
+            experience,
+            phoneNo,
+            personalAddress
         }
         doctors.push(newDoctor);
         setDoctors(doctors);
@@ -50,7 +50,7 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
         Swal.fire({
             icon: 'success',
             title: 'Added!',
-            text: `${name}'s data has been Added.`,
+            text: `${firstName}'s data has been Added.`,
             showConfirmButton: false,
             timer: 1500
         });
@@ -60,15 +60,24 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
     return (
         <div className="small-container">
             <form onSubmit={handleAdd}>
-                <h1 className='Add'>Add Doctor</h1>
-                <label htmlFor="name"> Name </label>
+                <h1>Add Doctor</h1>
+                <label htmlFor="firstName"> FirstName </label>
                 <input
-                    id="name"
+                    id="firstName"
                     type="text"
                     ref={textInput}
-                    name="name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                    name="firstName"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
+                />
+                <label htmlFor="lastName"> LastName </label>
+                <input
+                    id="lastName"
+                    type="text"
+                    ref={textInput}
+                    name="lastName"
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
                 />
                 <label htmlFor="age">Age</label>
                 <input
@@ -79,24 +88,14 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
                     onChange={e => setAge(e.target.value)}
                 />
 
-                <label htmlFor="phoneno">PhoneNo</label>
+                <label htmlFor="org">Organisation</label>
                 <input
-                    id="PhoneNo"
-                    type="number"
-                    name="PhoneNo"
-                    value={phoneno}
-                    onChange={e => setPhoneNo(e.target.value)}
-                    />
-
-                <label htmlFor="address">Address</label>
-                <input
-                    id="address"
+                    id="org"
                     type="text"
-                    name="address"
-                    value={address}
-                    onChange={e => setAddress(e.target.value)}
-                />
-
+                    name="org"
+                    value={org}
+                    onChange={e => setOrg(e.target.value)}
+                    />
                 
                 <label htmlFor="speciality">Speciality</label>
                 <input
@@ -117,31 +116,31 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
                     onChange={e => setQualification(e.target.value)}
                 />
 
-                <label htmlFor="experience_in_years">Experience_In_Years</label>
+                <label htmlFor="experience">Experience</label>
                 <input
-                    id="experience_in_years"
+                    id="experience"
                     type="number"
-                    name="experience_in_years"
-                    value={experience_in_years}
-                    onChange={e => setExperience_In_Years(e.target.value)}
+                    name="experience"
+                    value={experience}
+                    onChange={e => setExperience(e.target.value)}
                 />
 
-                <label htmlFor="awards">Awards</label>
+                <label htmlFor="phoneNo">PhoneNo</label>
                 <input
-                    id="awards"
-                    type="text"
-                    name="awards"
-                    value={awards}
-                    onChange={e => setAwards(e.target.value)}
-                />
+                    id="phoneNo"
+                    type="number"
+                    name="phoneNo"
+                    value={phoneNo}
+                    onChange={e => setPhoneNo(e.target.value)}
+                    />
 
-                <label htmlFor="clinic_address">Clinic_Address</label>
+                <label htmlFor="personalAddress">Personal Address</label>
                 <input
-                    id="clinic_address"
+                    id="personalAddress"
                     type="text"
-                    name="clinic_address"
-                    value={clinic_address}
-                    onChange={e => setClinic_Address(e.target.value)}
+                    name="personalAddress"
+                    value={personalAddress}
+                    onChange={e => setPersonalAddress(e.target.value)}
                 />
 
                 <div style={{ marginTop: '30px' }}>

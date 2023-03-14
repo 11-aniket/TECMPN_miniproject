@@ -2,12 +2,13 @@ import React, { useState, useRef, useEffect } from 'react'
 import Swal from 'sweetalert2';
 
 function AddOrphans({ orphans, setOrphans, setIsAdding }) {
-    /*const [image, setImage] = useState('');*/
     const [name, setName] = useState('');
-    const [age, setAge] = useState('');
-    const [year_of_enroll, setYear_Of_Enroll] = useState('');
-    const [adoption_status, setAdoption_Status] = useState('');
-    
+    const [gender, setGender] = useState('');
+    const [dob, setDob] = useState('');
+    const [yearOfEnroll, setYearOfEnroll] = useState('');
+    const [isAdopted, setIsAdopted] = useState('');
+    const [org, setOrg] = useState('');
+    const [background, setBackground] = useState('');
 
     const textInput = useRef(null);
 
@@ -17,7 +18,7 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
 
     const handleAdd = e => {
         e.preventDefault();
-        if (/*!image||*/!name || !age ||!year_of_enroll||!adoption_status) {
+        if (!name ||!gender || !dob ||!yearOfEnroll||!isAdopted ||!org||!background) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -29,11 +30,13 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
         const id = orphans.length + 1;
         const newOrphan = {
             id,
-            /*image,*/
             name,
-            age,
-            year_of_enroll,
-            adoption_status
+            gender,
+            dob,
+            yearOfEnroll,
+            isAdopted,
+            org,
+            background
         }
         orphans.push(newOrphan);
         setOrphans(orphans);
@@ -50,7 +53,7 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
 
 
     return (
-        <div className="small-container">
+        <div classname='small-container' >
             <form onSubmit={handleAdd}>
                 <h1>Add Orphan</h1>
                 <label htmlFor="name"> Name </label>
@@ -62,33 +65,55 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
-                <label htmlFor="age">Age</label>
+                <label htmlFor="gender"> Gender </label>
                 <input
-                    id="age"
-                    type="number"
-                    name="age"
-                    value={age}
-                    onChange={e => setAge(e.target.value)}
-                />
-
-                <label htmlFor="year_of_enroll">Year_Of_Enroll</label>
-                <input
-                    id="year_of_enroll"
-                    type="number"
-                    name="year_of_enroll"
-                    value={year_of_enroll}
-                    onChange={e => setYear_Of_Enroll(e.target.value)}
-                    />
-
-                <label htmlFor="adoption_status">Adoption_Status</label>
-                <input
-                    id="adoption_status"
+                    id="gender"
                     type="text"
-                    name="adoption_status"
-                    value={adoption_status}
-                    onChange={e => setAdoption_Status(e.target.value)}
+                    ref={textInput}
+                    name="gender"
+                    value={gender}
+                    onChange={e => setGender(e.target.value)}
                 />
-
+                <label htmlFor="dob">Dob</label>
+                <input
+                    id="dob"
+                    type="date"
+                    name="dob"
+                    value={dob}
+                    onChange={e => setDob(e.target.value)}
+                />
+                <label htmlFor="yearOfEnroll">YearOfEnroll</label>
+                <input
+                    id="yearOfEnroll"
+                    type="number"
+                    name="yearOfEnroll"
+                    value={yearOfEnroll}
+                    onChange={e => setYearOfEnroll(e.target.value)}
+                    />
+                <label htmlFor="isAdopted">IsAdopted</label>
+                <input
+                    id="isAdopted"
+                    type="text"
+                    name="isAdopted"
+                    value={isAdopted}
+                    onChange={e => setIsAdopted(e.target.value)}
+                />
+                <label htmlFor="org">Organisation</label>
+                <input
+                    id="org"
+                    type="text"
+                    name="org"
+                    value={org}
+                    onChange={e => setOrg(e.target.value)}
+                />
+                <label htmlFor="background">Background</label>
+                <input
+                    id="background"
+                    type="text"
+                    name="background"
+                    value={background}
+                    onChange={e => setBackground(e.target.value)}
+                />
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Add" />
                     <input

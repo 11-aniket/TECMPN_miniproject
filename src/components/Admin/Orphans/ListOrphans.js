@@ -11,12 +11,13 @@ function ListOrphans({ orphans, handleEdit, handleDelete }) {
                 <thead>
                     <tr>
                         <th>No.</th>
-                        {/* <th>Image</th> */}
                         <th>Name</th>
-                        <th>Age</th>
-                        <th>Year_Of_Enroll</th>
-                        <th>Adoption_Status</th>
-                        
+                        <th>Gender</th>
+                        <th>Date Of Birth</th>
+                        <th>YearOfEnroll</th>
+                        <th>Is Adopted?</th>
+                        <th>Organisation</th>
+                        <th>Background</th>
                         <th colSpan={2} className="text-center">
                             Actions
                         </th>
@@ -27,11 +28,13 @@ function ListOrphans({ orphans, handleEdit, handleDelete }) {
                         orphans.map((orphan, i) => (
                             <tr key={orphan.id}>
                                 <td>{i + 1}</td>
-                                {/* <td>{orphan.image}</td> */}
                                 <td>{orphan.name}</td>
-                                <td>{orphan.age}</td>
-                                <td>{orphan.year_of_enroll}</td>
-                                <td>{orphan.adoption_status} </td>
+                                <td>{orphan.gender}</td>
+                                <td>{orphan.dob}</td>
+                                <td>{orphan.yearOfEnroll}</td>
+                                <td>{orphan.isAdopted} </td>
+                                <td>{orphan.org}</td>
+                                <td>{orphan.background}</td>
                                 
                                 <td className="text-right">
                                     <button 

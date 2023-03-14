@@ -1,72 +1,44 @@
-/*
 import axios from 'axios';
 
-const fetchData = async () => {
+const orphan = [];
+
+const fetchOrphans = async () => {
   try {
-    const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-orphan');
-    const data = response.data;
-    console.log(data);
-    const dataArray = Array.from(data); // Converting response data into an array
-    return dataArray;
+    const token = localStorage.getItem('token');
+    const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-orphan', {
+      headers: {
+        Authorization: `Bearer ${token}` // Pass the token as an authorization header
+      }
+    });
+    const data = response.data.result;
+    const orphansArray = data.map((orphan, index) => ({
+      id: (index + 1),
+      image: '../images/boy.png',
+      name: orphan.name,
+      age: orphan.age,
+      gender: orphan.gender,
+      dateOfBirth: orphan.dob,
+      adoption_status: (orphan.isAdopted == true) ? "Adopted" : "UnAdopted",
+      year_of_enroll: orphan.yearOfEnroll,
+      background: orphan.background,
+      permissionGranted: orphan.permissionGranted
+    }));
+    console.log(orphansArray);
+    return orphansArray;
   } catch (error) {
     console.error(error);
-    return [];
   }
 };
 
-export default fetchData;
+const fetchData = async () => {
+  try {
+    const data = await fetchOrphans();
+    orphan.push(...data);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
-*/
-const orphan = [
-    {
-        id:1,
-        image:"../images/boy.png",
-        name: "Suraj",
-        age:"13",
-        year_of_enroll:"2001",
-        adoption_status:"Adopted",
-    },
-    {
-        id:2,
-        image:"../images/boy.png",
-        name: "Aditya",
-        age:"12",
-        year_of_enroll:"2001",
-        adoption_status:"UnAdopted",
-    },
-    {
-        id:3,
-        image:"../images/boy.png",
-        name: "Vicky",
-        age:"18",
-        year_of_enroll:"2008",
-        adoption_status:"UnAdopted",
-    },
-    {
-        id:4,
-        image:"../images/boy.png",
-        name: "Vikram",
-        age:"10",
-        year_of_enroll:"2002",
-        adoption_status:"UnAdopted",
-    },
-    {
-        id:5,
-        image:"../images/boy.png",
-        name: "Vishal",
-        age:"11",
-        year_of_enroll:"2011",
-        adoption_status:"Adopted",
-    },
-    {
-        id:6,
-        image:"../images/boy.png",
-        name: "Manoj",
-        age:"16",
-        year_of_enroll:"2010",
-        adoption_status:"Adopted",
-    },
-];
+fetchData();
 
 export default orphan;
-//  */

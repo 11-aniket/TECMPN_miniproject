@@ -1,78 +1,76 @@
 const doctorsData = [
     {
         id:1,
-        name: "Vinod",
+        firstName: "Vinod",
+        lastName: "Kumar",
         age:"26",
-        phoneno :"8448476853",
-        address:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in",
-        speciality:"Lorem ipsum",
-        qualification:"Lorem ipsum",
-        experience_in_years:"5",
-        awards:"lorem ipsum",
-        clinic_address:"lorem ipsum"
+        org: "Organisation1",
+        speciality:"Orthopedic",
+        qualification:"MBBS",
+        experience:"3",
+        phoneNo: "9836464623",
+        personalAddress:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in"
     },
     {
         id:2,
-        name: "Rakesh",
+        firstName: "Rakesh",
+        lastName: "Singh",
         age:"28",
-        phoneno :"7348476853",
-        address:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in",
-        speciality:"Lorem ipsum",
-        qualification:"Lorem ipsum",
-        experience_in_years:"5",
-        awards:"lorem ipsum",
-        clinic_address:"lorem ipsum"
+        org: "Organisation1",
+        speciality:"Cardiology",
+        qualification:"MBBS",
+        experience:"5",
+        phoneNo: "7764763183",
+        personalAddress:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in"
     },
     {
         id:3,
-      
-        name: "Raj",
-        age:"24",
-        phoneno :"9748476853",
-        address:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in",
-        speciality:"Lorem ipsum",
-        qualification:"Lorem ipsum",
-        experience_in_years:"5",
-        awards:"lorem ipsum",
-        clinic_address:"lorem ipsum"
+        firstName: "Raj",
+        lastName: "Singhania",
+        age:"30",
+        org: "Organisation2",
+        speciality:"Surgeon",
+        qualification:"MBBS",
+        experience:"5",
+        phoneNo: "8448476853",
+        personalAddress:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in"
+        
     },
     {
         id:4,
-      
-        name: "Piyush",
-        age:"29",
-        phoneno :"6248476853",
-        address:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in",
-        speciality:"Lorem ipsum",
-        qualification:"Lorem ipsum",
-        experience_in_years:"5",
-        awards:"lorem ipsum",
-        clinic_address:"lorem ipsum"
+        firstName: "Prashant",
+        lastName: "Rajput",
+        age:"35",
+        org: "Organisation2",
+        speciality:"Nuerologist",
+        qualification:"PHD",
+        experience:"6",
+        phoneNo: "7348476853",
+        personalAddress:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in"
     },
     {
         id:5,
-        
-        name: "Vikram",
-        age:"31",
-        phoneno :"7748476853",
-        address:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in",
-        speciality:"Lorem ipsum",
-        qualification:"Lorem ipsum",
-        experience_in_years:"5",
-        awards:"lorem ipsum",
-        clinic_address:"lorem ipsum"
+        firstName: "Himanshu",
+        lastName: "Nag",
+        age:"37",
+        org: "Organisation3",
+        speciality:"Dermatologist",
+        qualification:"MBBS",
+        experience:"7",
+        phoneNo: "6835281263",
+        personalAddress:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in"
     },
     {
         id:6,
-        name: "Amit",
-        age:"25",
-        phoneno :"9848476853",
-        address:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in",
-        speciality:"Lorem ipsum",
-        qualification:"Lorem ipsum",
-        experience_in_years:"5",
-        awards:"lorem ipsum",
-        clinic_address:"lorem ipsum"
+        fistName: "Madhav",
+        lastName: "Rawal",
+        age:"36",
+        org: "Organisation3",
+        speciality:"Urologist",
+        qualification:"MBBS",
+        experience:"5",
+        phoneNo: "9823512723",
+        personalAddress:"Lorem ipsum dolor commodo consequat. Duis aute irure dolor in"
     },
 ];
 

@@ -5,16 +5,19 @@ function EditParents({ parents, selectedParent, setParents, setIsEditing }) {
 
     const id = selectedParent.id;
 
-    const [name, setName] = useState(selectedParent.name);
-    const [age, setAge] = useState(selectedParent.age);
-    const [phoneno, setPhoneNo] = useState(selectedParent.phoneno);
-    const [email, setEmail] = useState(selectedParent.email);
+    const [firstName, setFirstName] = useState(selectedParent.firstName);
+    const [lastName, setLastName] = useState(selectedParent.lastName);
+    const [org, setOrg] = useState(selectedParent.org);
     const [address, setAddress] = useState(selectedParent.address);
+    const [phoneNo, setPhoneNo] = useState(selectedParent.phoneNo);
+    const [occupation, setOccupation] = useState(selectedParent.occupation);
+    const [isMarried, setIsMarried] = useState(selectedParent.isMarried);
+    const [references, setReferences] = useState(selectedParent.references);
     
     const handleUpdate = e => {
         e.preventDefault();
 
-        if (!name || !age || !phoneno || !email || !address) {
+        if  (!firstName||!lastName||!org||!address||!phoneNo||!occupation||!isMarried||!references){
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -25,11 +28,14 @@ function EditParents({ parents, selectedParent, setParents, setIsEditing }) {
 
         const parent = {
             id,
-            name,
-            age,
-            phoneno,
-            email,
-            address
+            firstName,
+            lastName,
+            org,
+            address,
+            phoneNo,
+            occupation,
+            isMarried,
+            references
            
         };
 
@@ -56,41 +62,31 @@ function EditParents({ parents, selectedParent, setParents, setIsEditing }) {
         <div className="small-container">
             <form onSubmit={handleUpdate}>
                 <h1>Edit Parent</h1>
-                <label htmlFor="firstName">Name</label>
+                <label htmlFor="firstName"> FirstName </label>
                 <input
-                    id="name"
+                    id="firstName"
                     type="text"
-                    name="name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                    name="firstName"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
                 />
-                 <label htmlFor="age">Age</label>
+                <label htmlFor="lastName"> LastName </label>
                 <input
-                    id="age"
-                    type="number"
-                    name="age"
-                    value={age}
-                    onChange={e => setAge(e.target.value)}
+                    id="lastName"
+                    type="text"
+                    name="lastName"
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
                 />
-
-                <label htmlFor="phoneno">PhoneNo</label>
+                <label htmlFor="org">Organisation</label>
                 <input
-                    id="PhoneNo"
-                    type="number"
-                    name="PhoneNo"
-                    value={phoneno}
-                    onChange={e => setPhoneNo(e.target.value)}
+                    id="org"
+                    type="text"
+                    name="org"
+                    value={org}
+                    onChange={e => setOrg(e.target.value)}
                     />
-
-                <label htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address"> Address</label>
                 <input
                     id="address"
                     type="text"
@@ -98,7 +94,38 @@ function EditParents({ parents, selectedParent, setParents, setIsEditing }) {
                     value={address}
                     onChange={e => setAddress(e.target.value)}
                 />
-               
+                <label htmlFor="phoneNo">PhoneNo</label>
+                <input
+                    id="phoneNo"
+                    type="number"
+                    name="phoneNo"
+                    value={phoneNo}
+                    onChange={e => setPhoneNo(e.target.value)}
+                    />
+                <label htmlFor="occupation">Occupation</label>
+                <input
+                    id="occupation"
+                    type="text"
+                    name="occupation"
+                    value={occupation}
+                    onChange={e => setOccupation(e.target.value)}
+                    />
+                <label htmlFor="isMarried">IsMarried</label>
+                <input
+                    id="isMarried"
+                    type="text"
+                    name="isMarried"
+                    value={isMarried}
+                    onChange={e => setIsMarried(e.target.value)}
+                    />
+                <label htmlFor="references">References</label>
+                <input
+                    id="references"
+                    type="text"
+                    name="references"
+                    value={references}
+                    onChange={e => setReferences(e.target.value)}
+                    />
                
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Update" />

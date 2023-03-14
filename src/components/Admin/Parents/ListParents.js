@@ -9,11 +9,14 @@ function ListParents({ parents, handleEdit, handleDelete }) {
                 <thead>
                     <tr>
                         <th>No.</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Phone No</th>
-                        <th>Email</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Organisation</th>
                         <th>Address</th>
+                        <th>Phone No</th>
+                        <th>Occupation</th>
+                        <th>IsMarried</th>
+                        <th>References</th>
                         <th colSpan={2} className="text-center">
                             Actions
                         </th>
@@ -24,12 +27,15 @@ function ListParents({ parents, handleEdit, handleDelete }) {
                         parents.map((parent, i) => (
                             <tr key={parent.id}>
                                 <td>{i + 1}</td>
-                                <td>{parent.name}</td>
-                                <td>{parent.age}</td>
-                                <td>{parent.phoneno}</td>
-                                <td>{parent.email}</td>
+                                <td>{parent.firstName}</td>
+                                <td>{parent.lastName}</td>
+                                <td>{parent.org}</td>
+                                <td>{parent.address}</td>
+                                <td>{parent.phoneNo}</td>
+                                <td>{parent.occupation}</td>
+                                <td>{parent.isMarried}</td>
+                                <td>{parent.references}</td>
                               
-                                <td>{parent.address} </td>
                                 <td className="text-right">
                                     <button3 
                                         onClick={() => handleEdit(parent.id)}
@@ -50,7 +56,7 @@ function ListParents({ parents, handleEdit, handleDelete }) {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan={7}>No Employees</td>
+                            <td colSpan={7}>No Parents</td>
                         </tr>
                     )}
                 </tbody>

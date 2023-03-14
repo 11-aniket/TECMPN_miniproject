@@ -3,6 +3,7 @@ import Side_nav from '../SideNav'
 import parentt from '../Api/ParentApi'
 import ParentNavbar from './ParentNavbar'
 import ParenttCard from './ParentCard'
+import { Link } from 'react-router-dom'
 import { TiUserAdd, TiUserDelete } from 'react-icons/ti'
 
 const uniqueList = [
@@ -40,9 +41,9 @@ const Parentt_Details = () => {
         </div>
         <div className=' py-3 font-bold sm: text-sm md:text-base flex absolute right-[2%]'>
                 <TiUserAdd className='w-9 h-7 -mt-1'/>
-                <a className='ml-1 mr-8' href="../AddParents">Add New Parent</a>
                 <TiUserDelete className='w-8 h-7 -mt-1'/>
-                <a className='ml-1' href="../ParentDashboard">Delete Parent</a>
+                <Link className='ml-1 mr-8' to="../AddParents">Add New Parent</Link>
+                <Link className='ml-1'to="../ParentDashboard">Delete Parent</Link>
             </div>
         <ParentNavbar filterItem={filterItem} parenttlist = {parenttlist} />
         <div className=' sm:pt-10 md:pt-0 absolute left-6 top-36 w-11/12'>

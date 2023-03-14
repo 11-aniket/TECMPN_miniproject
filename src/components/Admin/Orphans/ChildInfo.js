@@ -1,61 +1,83 @@
-import React, { useState } from 'react'
-import Sidenav from '../SideNav'
-import orphan from '../Api/OrphanApi'
-import Orphannavbar from './OrphanNavbar'
-import OrphanCard from './OrphanCard'
-import { TiUserAdd, TiUserDelete } from 'react-icons/ti'
-
-const uniqueList = [
-    ...new Set(
-        orphan.map((curElem)=>{
-            return curElem.adoption_status;
-        }) 
-    ),
-    "All"
-];
+import React, { useState, useEffect } from 'react';
+import Sidenav from '../SideNav';
+import Orphannavbar from './OrphanNavbar';
+import OrphanCard from './OrphanCard';
+import { Link } from 'react-router-dom';
+import { TiUserAdd, TiUserDelete } from 'react-icons/ti';
 
 const OrphanDetails = () => {
-
-    const [orphanData,setOrphanData] = useState(orphan);
-    const [orphanlist, setOrphanlist] = useState(uniqueList);
-    
-    const filterItem = (adoption_status) => {
-
-        if(adoption_status === "All"){
-            setOrphanData(orphan);
-            return;
-        }
-
-        const updatedList = orphan.filter((curElem) => {
-            return curElem.adoption_status === adoption_status;
+    const [orphanData, setOrphanData] = useState([]);
+    const [orphanlist, setOrphanlist] = useState(['All', 'Adopted', 'Unadopted']);
+    const [selectedOption, setSelectedOption] = useState('All');
+    const [originalData, setOriginalData] = useState([]);
+  
+    const fetchOrphans = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-orphan', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
-        setOrphanData(updatedList);
+        const data = await response.json();
+        const orphansArray = data.result.map((orphan, index) => ({
+          id: index + 1,
+          image: '../images/boy.png',
+          name: orphan.name,
+          age: orphan.age,
+          gender: orphan.gender,
+          dateOfBirth: orphan.dob,
+          adoption_status: (orphan.isAdopted == true || index % 2 == 0) ? 'Adopted' : 'Unadopted',// later remove this part of the code " || index % 2 == 0"
+          year_of_enroll: orphan.yearOfEnroll,
+          background: orphan.background,
+          permissionGranted: orphan.permissionGranted,
+        }));
+        setOrphanData(orphansArray);
+        setOriginalData(orphansArray);
+      } catch (error) {
+        console.error(error);
+      }
     };
-  return (
-    <>
-    <Sidenav/>
-    <div className='mt-12 ml-3 md:mt-0 md:absolute left-72 top-24 border-solid border-2 border-black inline-flex w-9/12'>
-        <div className='font-extrabold text-3xl italic hover:underline'>
-            Orphan Details
+  
+    useEffect(() => {
+      fetchOrphans();
+    }, []);
+  
+    const filterItem = (option) => {
+      setSelectedOption(option);
+    };
+  
+    useEffect(() => {
+      if (selectedOption === 'All') {
+        setOrphanData(originalData);
+      } else {
+        const updatedList = originalData.filter((orphan) => orphan.adoption_status === selectedOption);
+        setOrphanData(updatedList);
+      }
+    }, [selectedOption, originalData]);
+  
+    return (
+      <>
+        <Sidenav />
+        <div className='mt-12 ml-3 md:mt-0 md:absolute left-72 top-24 border-solid border-2 border-black inline-flex w-9/12'>
+          <div className='font-extrabold text-3xl italic hover:underline'>Orphan Details</div>
+          <div className='py-3 font-bold sm:text-sm md:text-base flex absolute right-[2%]'>
+            <TiUserAdd className='w-9 h-7 -mt-1' />
+            <Link className='ml-1 mr-8' to='../OrphanDashboard'>
+              Add New Orphan
+            </Link>
+            <TiUserDelete className='w-8 h-7 -mt-1' />
+            <Link className='ml-1' to='../OrphanDashboard'>
+              Delete Orphan
+            </Link>
+          </div>
+          <Orphannavbar filterItem={filterItem} orphanlist={orphanlist} />
+        <div className='sm:pt-10 md:pt-0 absolute left-6 top-36 w-11/12'>
+          <OrphanCard orphanData={orphanData} />
         </div>
-        <div className=' py-3 font-bold sm: text-sm md:text-base flex absolute right-[2%]'>
-                <TiUserAdd className='w-9 h-7 -mt-1'/>
-                <a className='ml-1 mr-8' href="../OrphanDashboard">Add New Orphan</a>
-                <TiUserDelete className='w-8 h-7 -mt-1'/>
-                <a className='ml-1' href="../OrphanDashboard">Delete Orphan</a>
-            </div>
-        <Orphannavbar filterItem={filterItem} orphanlist={orphanlist} />
-        <div className=' sm:pt-10 md:pt-0 absolute left-6 top-36 w-11/12'>
-            < OrphanCard orphanData={orphanData} />
-        </div>
-    </div>
+      </div>
     </>
   );
-}
+};
 
-export default OrphanDetails
-
-
-{
-/*
- */}
+export default OrphanDetails;

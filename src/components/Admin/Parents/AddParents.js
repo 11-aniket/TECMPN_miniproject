@@ -1,14 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Swal from 'sweetalert2';
 
+
 function AddParents({ parents, setParents, setIsAdding }) {
 
-    const [name, setName] = useState('');
-    const [age, setAge] = useState('');
-    const [phoneno, setPhoneNo] = useState('');
-    const [email, setEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [org, setOrg] = useState('');
     const [address, setAddress] = useState('');
-
+    const [phoneNo, setPhoneNo] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [isMarried, setIsMarried] = useState('');
+    const [references, setReferences] = useState('');
+    
     const textInput = useRef(null);
 
     useEffect(() => {
@@ -17,7 +21,7 @@ function AddParents({ parents, setParents, setIsAdding }) {
 
     const handleAdd = e => {
         e.preventDefault();
-        if (!name || !age ||!phoneno || !email || !address) {
+        if (!firstName||!lastName||!org||!address||!phoneNo||!occupation||!isMarried||!references) {
             return Swal.fire({
                 icon: 'error',
                 title: 'Error!',
@@ -29,11 +33,14 @@ function AddParents({ parents, setParents, setIsAdding }) {
         const id = parents.length + 1;
         const newParent = {
             id,
-            name,
-            age,
-            phoneno,
-            email,
-            address
+            firstName,
+            lastName,
+            org,
+            address,
+            phoneNo,
+            occupation,
+            isMarried,
+            references
         }
         parents.push(newParent);
         setParents(parents);
@@ -42,7 +49,7 @@ function AddParents({ parents, setParents, setIsAdding }) {
         Swal.fire({
             icon: 'success',
             title: 'Added!',
-            text: `${name}'s data has been Added.`,
+            text: `${firstName}'s data has been Added.`,
             showConfirmButton: false,
             timer: 1500
         });
@@ -50,45 +57,36 @@ function AddParents({ parents, setParents, setIsAdding }) {
 
 
     return (
-        <div className="small-container">
-            <form onSubmit={handleAdd}>
-                <h1 className='Add'>Add Parent</h1>
-                <label htmlFor="name"> Name </label>
+        <div className='small-container'>
+            <form  onSubmit={handleAdd}>
+                <h1>Add Parent</h1>
+                <label htmlFor="firstName"> FirstName </label>
                 <input
-                    id="name"
+                    id="firstName"
                     type="text"
                     ref={textInput}
-                    name="name"
-                    value={name}
-                    onChange={e => setName(e.target.value)}
+                    name="firstName"
+                    value={firstName}
+                    onChange={e => setFirstName(e.target.value)}
                 />
-                <label htmlFor="age">Age</label>
+                <label htmlFor="lastName"> LastName </label>
                 <input
-                    id="age"
-                    type="number"
-                    name="age"
-                    value={age}
-                    onChange={e => setAge(e.target.value)}
+                    id="lastName"
+                    type="text"
+                    ref={textInput}
+                    name="lastName"
+                    value={lastName}
+                    onChange={e => setLastName(e.target.value)}
                 />
-
-                <label htmlFor="phoneno">PhoneNo</label>
+                <label htmlFor="org">Organisation</label>
                 <input
-                    id="PhoneNo"
-                    type="number"
-                    name="PhoneNo"
-                    value={phoneno}
-                    onChange={e => setPhoneNo(e.target.value)}
+                    id="org"
+                    type="text"
+                    name="org"
+                    value={org}
+                    onChange={e => setOrg(e.target.value)}
                     />
-
-                <label htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                />
-                <label htmlFor="address">Address</label>
+                <label htmlFor="address"> Address</label>
                 <input
                     id="address"
                     type="text"
@@ -96,7 +94,39 @@ function AddParents({ parents, setParents, setIsAdding }) {
                     value={address}
                     onChange={e => setAddress(e.target.value)}
                 />
-               
+                <label htmlFor="phoneNo">PhoneNo</label>
+                <input
+                    id="phoneNo"
+                    type="number"
+                    name="phoneNo"
+                    value={phoneNo}
+                    onChange={e => setPhoneNo(e.target.value)}
+                    />
+                <label htmlFor="occupation">Occupation</label>
+                <input
+                    id="occupation"
+                    type="text"
+                    name="occupation"
+                    value={occupation}
+                    onChange={e => setOccupation(e.target.value)}
+                    />
+                <label htmlFor="isMarried">IsMarried</label>
+                <input
+                    id="isMarried"
+                    type="text"
+                    name="isMarried"
+                    value={isMarried}
+                    onChange={e => setIsMarried(e.target.value)}
+                    />
+                <label htmlFor="references">References</label>
+                <input
+                    id="references"
+                    type="text"
+                    name="references"
+                    value={references}
+                    onChange={e => setReferences(e.target.value)}
+                    />
+
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Add" />
                     <input

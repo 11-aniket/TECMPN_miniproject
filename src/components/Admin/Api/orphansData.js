@@ -1,51 +1,65 @@
 const orphansData = [
     {
         id:1,
-        image:"../images/boy.png",
         name: "Suraj",
-        age:"13",
-        year_of_enroll:"2001",
-        adoption_status:"Adopted",
+        gender: "male",
+        dob: "9-1-2004",
+        yearOfEnroll:"2007",
+        isAdopted: "yes",
+        org : "Organisation1",
+        background: "no parents"
+
     },
     {
         id:2,
-        image:"../images/boy.png",
         name: "Aditya",
-        age:"12",
-        year_of_enroll:"2001",
-        adoption_status:"UnAdopted",
+        gender: "male",
+        dob: "21-3-2003",
+        yearOfEnroll:"2007",
+        isAdopted: "no",
+        org : "Organisation1",
+        background: "no parents"
     },
     {
         id:3,
-        image:"../images/boy.png",
-        name: "Vicky",
-        age:"18",
-        year_of_enroll:"2008",
-        adoption_status:"UnAdopted",
+        name: "Sania",
+        gender: "female",
+        dob: "6-8-2002",
+        yearOfEnroll:"2004",
+        isAdopted: "yes",
+        org : "Organisation2",
+        background: "no parents"
+       
     },
     {
         id:4,
-        image:"../images/boy.png",
-        name: "Vikram",
-        age:"10",
-        year_of_enroll:"2002",
-        adoption_status:"UnAdopted",
+        name: "Tina",
+        gender: "female",
+        dob: "16-2-2001",
+        yearOfEnroll:"2008",
+        isAdopted: "yes",
+        org : "Organisation2",
+        background: "no parents"
     },
     {
         id:5,
-        image:"../images/boy.png",
         name: "Vishal",
-        age:"11",
-        year_of_enroll:"2011",
-        adoption_status:"Adopted",
+        gender: "male",
+        dob: "26-1-2003",
+        yearOfEnroll:"2010",
+        isAdopted: "no",
+        org : "Organisation3",
+        background: "no parents"
     },
     {
         id:6,
-        image:"../images/boy.png",
         name: "Manoj",
-        age:"16",
-        year_of_enroll:"2010",
-        adoption_status:"Adopted",
+        gender: "male",
+        dob: "20-11-2005",
+        yearOfEnroll:"2012",
+        isAdopted: "yes",
+        org : "Organisation3",
+        background: "no parents"
     },
 ];
 

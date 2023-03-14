@@ -13,7 +13,6 @@ import Feedback from './components/Admin/Feedback';
 import PhotoGallery from './components/Admin/PhotoGallery';
 import Doctor_Details from './components/Admin/Doctors/DoctorInfo';
 import Parentt_Details from './components/Admin/Parents/ParentInfo';
-import DrNavbar from './components/Doctor_Login/DrNavbar';
 import Parent_Profile from './components/Parent_Login/Parent_Profile';
 import AddPhotoGallery from './components/Admin/AddPhotoGallery';
 import Donation from './components/Admin/Donation';
@@ -41,6 +40,8 @@ import ViewOrphan from './components/Parent_Login/ViewOrphan'
 import DrProfile from './components/Doctor_Login/DrProfile';
 import OrphanUMe from './components/Doctor_Login/OrphanUMe';
 import EditPage from './components/Doctor_Login/EditPage';
+
+import OrphanDetail from './components/Admin/Orphans/OrphanDetail';
 
 function App() {
   return (
@@ -74,7 +75,7 @@ function App() {
       <Route path="/ListDoctors" element={<ListDoctors/>}/>
       <Route path="/HeaderDoctors" element={<HeaderDoctors/>}/>
       <Route path="/DoctorDashboard" element={<DoctorDashboard/>}/>
-    
+      <Route path="/orphan/:id" element={<OrphanDetail/>} /> 
 
       {/* Parent pages */}
       <Route path='/Parent_Profile' element={< Parent_Profile/>} />

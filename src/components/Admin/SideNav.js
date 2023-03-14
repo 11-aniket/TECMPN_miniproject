@@ -22,12 +22,12 @@ function Sidenav() {
     navigate('/signin');
   };
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem('token');
-    if (!isLoggedIn) {
+   useEffect(() => {
+     const isLoggedIn = localStorage.getItem('token');
+     if (!isLoggedIn) {
       navigate('/signin');
     }
-  }, [navigate]);
+   }, [navigate]);
 
   return (
     <>
