@@ -1,110 +1,172 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-const EditPage = ({ orphanName, orphanAge }) => {
-  const [allergies, setAllergies] = useState('');
-  const [symptoms, setSymptoms] = useState('');
-  const [diagnosis, setDiagnosis] = useState('');
-  const [treatments, setTreatments] = useState('');
-  const [disfigurements, setDisfigurements] = useState('');
-  const [changedBy, setChangedBy] = useState('Dr. John Doe');
+function OrphanEditor() {
+  const [basicDetails, setBasicDetails] = useState({
+    id: "",
+    name: "",
+    gender: "",
+    dob: "",
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const data = {
-      allergies,
-      symptoms,
-      diagnosis,
-      treatments,
-      disfigurements,
-      changedBy,
-    };
+  const [medicalDetails, setMedicalDetails] = useState({
+    allergies: "",
+    diagnosis: "",
+    treatment: "",
+    disfigurements: "",
+  });
 
-    axios
-      .post('/api/update', data)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.error(err));
+  const [orphanId, setOrphanId] = useState("ORP4");
+
+  useEffect(() => {
+    getOrphanDetails();
+  }, []);
+
+  const getOrphanDetails = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/channels/oms/chaincodes/doctor/doctor-read-orphan",
+        {
+          args: {
+            orphanId: orphanId,
+          },
+        }
+      );
+      const orphanData = response.data;
+
+      setBasicDetails({
+        id: orphanData.id,
+        name: orphanData.name,
+        gender: orphanData.gender,
+        dob: orphanData.dob,
+      });
+
+      setMedicalDetails({
+        allergies: orphanData.allergies[0],
+        diagnosis: orphanData.diagnosis[0],
+        treatment: orphanData.treatment[0],
+        disfigurements: orphanData.disfigurements[0],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleMedicalDetailsChange = (event) => {
+    setMedicalDetails({
+      ...medicalDetails,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleUpdateOrphan = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/channels/oms/chaincodes/doctor/doctor-update-orphan",
+        {
+          args: {
+            allergies: [medicalDetails.allergies],
+            diagnosis: [medicalDetails.diagnosis],
+            treatment: [medicalDetails.treatment],
+            disfigurements: [medicalDetails.disfigurements],
+            orphanId: orphanId,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <div className="px-5 py-10 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-medium text-center text-indigo-600">Edit Patient Information</h2>
-      <form onSubmit={handleSubmit} className="mt-10">
-        <div className="mt-6">
-          <label className="block text-gray-700 font-medium mb-2">Orphan Name</label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            value={orphanName}
-            readOnly
-          />
-        </div>
-        <div className="mt-6">
-          <label className="block text-gray-700 font-medium mb-2">Orphan Age</label>
-          <input
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            type="text"
-            value={orphanAge}
-            readOnly
-          />
-        </div>
-        <div className="mt-6">
-          <label className="block text-gray-700 font-medium mb-2">Allergies</label>
-          <textarea
-            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            value={allergies}
-            onChange={(e) => setAllergies(e.target.value)}
-          />
-        </div>
-        <div className="mt-6">
-          <label className="block text-gray-700 font-medium mb-2">Symptoms</label>
-        <textarea
-        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        value={symptoms}
-        onChange={(e) => setSymptoms(e.target.value)}
-        />
-        </div>
-        <div className="mt-6">
-        <label className="block text-gray-700 font-medium mb-2">Diagnosis</label>
-        <textarea
-        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        value={diagnosis}
-        onChange={(e) => setDiagnosis(e.target.value)}
-        />
-        </div>
-        <div className="mt-6">
-        <label className="block text-gray-700 font-medium mb-2">Treatments</label>
-        <textarea
-        className="appearance-none border rounded w-
-
-        full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        value={treatments}
-        onChange={(e) => setTreatments(e.target.value)}
+    <>
+  <div className="md:w-1/2 sm:w-5/6 mx-auto border-4 border-black p-5 my-5 mx-1/2 sm:mx-10">
+      <form className="text-center" onSubmit={handleUpdateOrphan}>
+      <hr className="my-4 border-2 border-black" />
+      <div className="my-4 p-2 border-2 text-center text-2xl sm:text-lg bg-gray-900 text-white font-bold">Editor Form: Update Orphan Details</div>
+        <hr className="my-4 border-2 border-black" />
+        <div className="p-3 border-2 border-y-black" >
+        <h3 className="my-4 p-1 bg-gray-400 font-semibold rounded-xl text-center">Basic Details:</h3>
+        <label className=" ml-2 text-justify" htmlFor="id">ID:</label>
+        <input 
+          type="text"
+          id="id"
+          name="id"
+          value={basicDetails.id}
+          readOnly
         />
 
-        </div>
-        <div className="mt-6">
-        <label className="block text-gray-700 font-medium mb-2">Disfigurements</label>
-        <textarea
-        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        value={disfigurements}
-        onChange={(e) => setDisfigurements(e.target.value)}
-        />
-        </div>
-        <div className="mt-6">
-        <label className="block text-gray-700 font-medium mb-2">Changed By</label>
+        <label className=" ml-2 text-justify" htmlFor="name">Name:</label>
         <input
-        type="text"
-        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        value={changedBy}
-        onChange={(e) => setChangedBy(e.target.value)}
+          type="text"
+          id="name"
+          name="name"
+          value={basicDetails.name}
+          readOnly
+        />
+
+        <label className=" ml-2 text-justify" htmlFor="gender">Gender:</label>
+        <input
+          type="text"
+          id="gender"
+          name="gender"
+          value={basicDetails.gender}
+          readOnly
+        />
+      
+        <label className=" ml-2 text-justify" htmlFor="dob">DOB:</label>
+        <input
+          type="date"
+          id="dob"
+          name="dob"
+          value={basicDetails.dob}
+          readOnly
         />
         </div>
-        <div className="mt-6">
-        <button className="bg-indigo-600 text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-        type="submit" > Submit </button>
-        </div>
-        </form>
-        </div>
-        ); };  
-  export default EditPage;
+    <div>
+    <h3 className="my-4 p-1 bg-gray-400 font-semibold rounded-xl text-center">Medical Details:</h3>
+    <label className=" ml-2 text-justify" htmlFor="allergies">Allergies:</label>
+    <textarea
+      id="allergies"
+      name="allergies"
+      value={medicalDetails.allergies}
+      onChange={handleMedicalDetailsChange}
+    />
+
+    <label className=" ml-2 text-justify" htmlFor="diagnosis">Diagnosis:</label>
+    <textarea
+      id="diagnosis"
+      name="diagnosis"
+      value={medicalDetails.diagnosis}
+      onChange={handleMedicalDetailsChange}
+    />
+
+    <label className=" ml-2 text-justify" htmlFor="treatment">Treatment:</label>
+    <textarea
+      id="treatment"
+      name="treatment"
+      value={medicalDetails.treatment}
+      onChange={handleMedicalDetailsChange}
+    />
+
+    <label className=" ml-2 text-justify" htmlFor="disfigurements">Disfigurements:</label>
+    <textarea
+      id="disfigurements"
+      name="disfigurements"
+      value={medicalDetails.disfigurements}
+      onChange={handleMedicalDetailsChange}
+    />
+
+    </div>
+    <Link to="/orphanUMe" className=" w-3/6 border-2 border-green-900 inline-block text-lg bg-green-400 hover:bg-green-700 text-black font-bold py-2 px-4 rounded mx-auto mt-4">Update</Link>
+
+  </form>
+</div>
+</>
+)
+  }
+
+export default OrphanEditor

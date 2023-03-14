@@ -42,6 +42,7 @@ import OrphanUMe from './components/Doctor_Login/OrphanUMe';
 import EditPage from './components/Doctor_Login/EditPage';
 
 import OrphanDetail from './components/Admin/Orphans/OrphanDetail';
+import OrphanEditor from './components/Doctor_Login/EditPage';
 
 function App() {
   return (
@@ -71,7 +72,7 @@ function App() {
       <Route path='/drprofile' element={< DrProfile />} />
       <Route path='/orphanUMe' element={<OrphanUMe />} />
       <Route path="/AddDoctors" element={<AddDoctors/>}/>
-      <Route path="/EditDoctors" element={<EditDoctors/>}/>
+      <Route path="/editOrphan" element={<OrphanEditor/>}/>
       <Route path="/ListDoctors" element={<ListDoctors/>}/>
       <Route path="/HeaderDoctors" element={<HeaderDoctors/>}/>
       <Route path="/DoctorDashboard" element={<DoctorDashboard/>}/>

@@ -27,59 +27,61 @@ function DrNavbar() {
   let Links = [
     { name: 'Profile', link: '/drhome' },
     { name: 'Orphans Details', link: '/orphanUMe' },
+    { name: 'Edit Orphan', link: '/editOrphan' }
   ];
 
   return (
     <>
       <topnav
-        className="static flex top-0 z-10 min-w-min text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 mx-1 rounded-2xl0 "
+        className=" fixed top-0 z-10 min-w-full text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 mx-1 rounded-2xl"
         onClick={closeProfile}
       >
-        <div className=" mr-3 sm:h-9 container md:justify-between justify-between mx-auto">
-          <span className="self-center text-xl font-semibold  whitespace-nowrap dark:text-white cursor-pointer">
+        <div className="container mx-auto flex justify-between">
+          <span className="self-center text-2xl font-semibold  whitespace-nowrap dark:text-white cursor-pointer">
             Orphanage Foundation Center
           </span>
-        </div>
-        <div
-          onClick={() => setOpen(!open)}
-          className="h-5 mr-3 w-6 cursor-pointer md:hidden"
-        >
-          <img
-            src={open ? '../images/cancel.png' : '../images/menu.png'}
-            alt=""
-          />
+          <div
+            onClick={() => setOpen(!open)}
+            className="h-5 w-6 cursor-pointer md:hidden"
+          >
+            <img
+              src={open ? '../images/cancel.png' : '../images/menu.png'}
+              alt=""
+            />
+          </div>
         </div>
       </topnav>
       <sidenav
-  className={`md:flex md:items-center md:space-x-5 md:py-0 pb-8 md:px-0 px-5 flex m-4 py-6 absolute md:static md:z-auto z-[4] md:w-1/6 left-0 top-0 md:my-0 my-14 md:mx-0 mx-1 w-fit transition-all duration-500 ease-in rounded-2xl ${
-    open ? 'top-0' : '-top-[1000px]'
-  }`}
-  style={{ borderRight: '2px solid black' }} // added right-side border
->
-  <div
-    className='flex flex-col cursor-pointer sm:text-white sm:bg-slate-600 md:bg-white md:text-black font-semibold w-11/12 space-y-3 gap-y-96'>
-    <ul className='space-y-3'>
-      {Links.map((link) => (
-        <li
-          key={link.name}
-          className='hover:border-solid hover:border-gray-500 hover:w-full hover:pl-2 md:m-2 text-xl '
+        className={`sticky md:flex md:items-center h-screen md:space-x-5 md:py-0 pb-8 md:px-0 px-5 flex m-4 py-6 md:static md:z-auto z-[4] md:w-1/6 left-0 top-0 md:my-0 my-14 md:mx-0 mx-1 w-fit transition-all duration-500 ease-in ${
+          open ? 'top-0' : '-top-[1000px]'
+        }`}
+        style={{ borderRight: '2px solid black', backgroundColor: 'white' }}
+      >
+        <div
+          className='flex flex-col cursor-pointer font-semibold w-11/12 space-y-3 gap-y-96'
+          style={{ color: 'black' }}
         >
-          <Link to={link.link} onClick={() => setProfileOpen(true)}>
-            {link.name}
-          </Link>
-        </li>
-      ))}
-    </ul>
-    <div className=''>
-      <button className='bg-red-500 text-white py-2 px-4 rounded-xl w-3/5' onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
-  </div>
-</sidenav>
-
-
-</>)
+          <ul className='space-y-3'>
+            {Links.map((link) => (
+              <li
+                key={link.name}
+                className=' text-justify hover:border-solid hover:border-gray-500 hover:w-full hover:pl-2 md:m-2 text-2xl flex items-center pl-4'
+              >
+                <Link to={link.link} onClick={() => setProfileOpen(true)}>
+                  {link.name}  
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className='pl-4 '>
+            <button className=' text-lg font-bold bg-red-500 text-white py-2 px-4 rounded-xl w-3/5' onClick={handleLogout}>
+              Logout
+            </button>
+          </div>
+        </div>
+      </sidenav>
+    </>
+  );
 }
 
-export default DrNavbar
+export default DrNavbar;

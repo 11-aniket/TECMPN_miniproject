@@ -43,40 +43,41 @@ const DrProfile = () => {
   }
 
   return (
-    <div className='bg-gradient-to-r from-indigo-400 to-purple-400 h-max'>
+    <div className='bg-gradient-to-r from-indigo-400 to-purple-400 h-screen'>
     <DrNavbar />
-    <div className="fixed top-16 left-1/2 transform -translate-x-1/2 max-w-sm mx-auto my-10 p-10 bg-white rounded-lg shadow-lg border border-gray-300">
-      <p className="text-gray-600 mb-4 font-medium text-center">
+    <div className="fixed top-16 left-1/2 transform -translate-x-1/2 max-w-sm mx-auto my-10 p-10 bg-white rounded-xl shadow-lg border-4 border-gray-800">
+      <p className="text-gray-600 mb-4 font-medium text-center ">
         Doctor ID: {doctorData.id}
       </p>
       <img
-        className="w-full h-64 object-cover object-center rounded-t-lg"
+        className="w-full h-64 object-cover object-center rounded-t-lg p-2 border-4 border-gray-800"
         src={doctorData.imageUrl || 'https://via.placeholder.com/400x300'}
         alt="Doctor's Profile"
       />
-      <div className="mt-6">
-        <h2 className="text-2xl font-medium text-center text-indigo-600">
+      <div className="mt-6 text-lg ">
+        <h2 className="text-3xl font-bold text-center text-indigo-600">
           {doctorData.name || 'Dr. John Doe'}
         </h2>
-        <p className="text-gray-600 text-center mt-2">
-          {doctorData.specialization || 'Orthopedic Surgeon'}
+        <p className="text-gray-800 font-medium mt-2 text-justify"> 
+        Role: {doctorData.specialization || 'Orthopedic Surgeon'}
         </p>
-        <p className="text-gray-600 text-center mt-2">
+        <p className="text-gray-800 font-medium text-justify mt-2"> 
           Organization: {doctorData.organization || 'ABC Hospital'}
         </p>
-        <p className="text-gray-600 text-center mt-2">
+        <p className="text-gray-800 font-medium text-justify mt-2"> 
           Phone: {doctorData.phone || '(123) 456-7890'}
         </p>
         <div className="mt-6 text-center">
-          <p className="text-gray-600 inline-block bg-gray-200 rounded-full px-3 py-1 mr-2">
+          <p className="text-gray-900 inline-block bg-gray-200 rounded-full px-3 py-1 mr-2">
             Years of Experience: {doctorData.experience || '10'}
           </p>
-          <p className="text-gray-600 mt-2 inline-block bg-gray-200 rounded-full px-3 py-1">
+          <p className="text-gray-900 mt-2 inline-block bg-gray-200 rounded-full px-3 py-1">
             Specialties: {doctorData.specialties || 'Hip and Knee Surgery'}
           </p>
         </div>
       </div>
     </div>
+
   </div>
   );
 };
