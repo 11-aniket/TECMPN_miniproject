@@ -20,14 +20,15 @@ const OrphanDetails = () => {
           },
         });
         const data = await response.json();
-        const orphansArray = data.result.map((orphan, index) => ({
-          id: index + 1,
+        const orphansArray = data.result.map((orphan,index) => ({
+          id: orphan.id,
+          number:index+1,
           image: '../images/boy.png',
           name: orphan.name,
           age: orphan.age,
           gender: orphan.gender,
           dateOfBirth: orphan.dob,
-          adoption_status: (orphan.isAdopted == true || index % 2 == 0) ? 'Adopted' : 'Unadopted',// later remove this part of the code " || index % 2 == 0"
+          adoption_status: (orphan.isAdopted == true ) ? 'Adopted' : 'Unadopted',// later remove this part of the code " || index % 2 == 0"
           year_of_enroll: orphan.yearOfEnroll,
           background: orphan.background,
           permissionGranted: orphan.permissionGranted,
@@ -55,6 +56,17 @@ const OrphanDetails = () => {
         setOrphanData(updatedList);
       }
     }, [selectedOption, originalData]);
+
+    useEffect(() => {
+      const handlePopstate = () => {
+        // force re-render when the browser history changes
+        window.location.reload();
+      };
+      window.onpopstate = handlePopstate;
+      return () => {
+        window.onpopstate = null;
+      };
+    }, []);
   
     return (
       <>

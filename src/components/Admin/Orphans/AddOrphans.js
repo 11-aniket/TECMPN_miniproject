@@ -17,40 +17,65 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
     }, [])
 
     const handleAdd = e => {
-        e.preventDefault();
-        if (!name ||!gender || !dob ||!yearOfEnroll||!isAdopted ||!org||!background) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'All fields are required.',
-                showConfirmButton: true
-            });
+      e.preventDefault();
+      if (!name || !gender || !dob || !yearOfEnroll || !isAdopted || !org || !background) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'All fields are required.',
+          showConfirmButton: true
+        });
+      }
+    
+      const apiUrl = 'http://localhost:8000/channels/oms/chaincodes/orphanage/admin-create-orphan';
+      const token = localStorage.getItem('token');
+    
+      const data = {
+        args: {
+          name: name,
+          gender: gender,
+          dob: dob,
+          yearOfEnroll: parseInt(yearOfEnroll),
+          isAdopted: (isAdopted === 'true') ? "true" : "false",
+          org: org,
+          background: background
         }
-
-        const id = orphans.length + 1;
-        const newOrphan = {
-            id,
-            name,
-            gender,
-            dob,
-            yearOfEnroll,
-            isAdopted,
-            org,
-            background
-        }
-        orphans.push(newOrphan);
-        setOrphans(orphans);
-        setIsAdding(false);
-
-        Swal.fire({
+      };
+      console.log("Data",data);
+    
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => response.json())
+        .then(result => {
+          console.log("Result ",result);
+          const updatedOrphans = [...orphans, result];
+          setOrphans(updatedOrphans);
+          setIsAdding(false);
+    
+          Swal.fire({
             icon: 'success',
             title: 'Added!',
-            text: `${name}'s data has been Added.`,
+            text: `${result.name}'s data has been added.`,
             showConfirmButton: false,
             timer: 1500
+          });
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: 'Failed to add orphan.',
+            showConfirmButton: true
+          });
         });
-    }
-
+    }      
 
     return (
         <div classname='small-container' >
@@ -90,14 +115,30 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
                     value={yearOfEnroll}
                     onChange={e => setYearOfEnroll(e.target.value)}
                     />
-                <label htmlFor="isAdopted">IsAdopted</label>
-                <input
-                    id="isAdopted"
-                    type="text"
-                    name="isAdopted"
-                    value={isAdopted}
-                    onChange={e => setIsAdopted(e.target.value)}
-                />
+                <label htmlFor="isAdopted">Is Adopted</label>
+                  <div className='flex'>
+                      <label>
+                          <input
+                              type="radio"
+                              name="isAdopted"
+                              value="true"
+                              checked={isAdopted === 'true'}
+                              onChange={e => setIsAdopted(e.target.value)}
+                          />
+                          Yes
+                      </label>
+                      <label style={{ marginLeft: '10px' }}>
+                          <input
+                              type="radio"
+                              name="isAdopted"
+                              value="false"
+                              checked={isAdopted === 'false'}
+                              onChange={e => setIsAdopted(e.target.value)}
+                          />
+                          No
+                      </label>
+                  </div>
+
                 <label htmlFor="org">Organisation</label>
                 <input
                     id="org"

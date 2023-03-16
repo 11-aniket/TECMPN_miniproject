@@ -1,24 +1,30 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import Swal from 'sweetalert2';
-import orphansData from '../Api/orphansData';
 import ListOrphans from '../Orphans/ListOrphans';
 import AddOrphans from './AddOrphans';
-import EditOrphans from './EditOrphans';
 import HeaderOrphans from './HeaderOrphans';
 
 function OrphanDashboard() {
 
-    const [orphans, setOrphans] = useState(orphansData);
-    const [selectedOrphan, setSelectedOrphan] = useState(null);
+    const [orphans, setOrphans] = useState(() =>{
+        const token = localStorage.getItem('token');
+        axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-orphan', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+            .then((response) => {
+                setOrphans(response.data);
+                console.log("Edit page : ", response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    });
     const [isAdding, setIsAdding] = useState(false);
-    const [isEditing, setIsEditing] = useState(false);
 
-    const handleEdit = (id) => {
-        const [orphan] = orphans.filter(orphan=> orphan.id === id);
-
-        setSelectedOrphan(orphan);
-        setIsEditing(true);
-    }
+    console.log("OrphansData : " , orphans);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -40,46 +46,35 @@ function OrphanDashboard() {
                     timer: 1500,
                 });
 
-                setOrphans(orphans.filter(orphan => orphan.id !== id));
+                setOrphans(orphans.result.filter(orphan => orphan.id !== id));
             }
         });
     }
 
 
+
     return (
-        <div className='container'>
-            {/* List */}
-            {!isAdding && !isEditing && (
-                <>
-                    <HeaderOrphans
-                        setIsAdding={setIsAdding}
-                    />
-                    <ListOrphans
-                       orphans={orphans}
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                    />
-                </>
-            )}
-            {/* Add */}
-            {isAdding && (
-                <AddOrphans
-                    orphans={orphans}
-                    setOrphans={setOrphans}
-                    setIsAdding={setIsAdding}
-                />
-            )}
-            {/* Edit */}
-            {isEditing && (
-                <EditOrphans
-                    orphans={orphans}
-                    selectedOrphan={selectedOrphan}
-                    setOrphans={setOrphans}
-                    setIsEditing={setIsEditing}
-                />
-            )}
+        <div className="container">
+          {/* List */}
+          {!isAdding  && (
+            <>
+              <HeaderOrphans setIsAdding={setIsAdding} />
+              <ListOrphans
+                orphans={orphans}
+                handleDelete={handleDelete}
+              />
+            </>
+          )}
+          {/* Add */}
+          {isAdding && (
+            <AddOrphans
+              orphans={orphans}
+              setOrphans={setOrphans}
+              setIsAdding={setIsAdding}
+            />
+          )}
         </div>
-    )
+      );      
 }
 
 export default OrphanDashboard;

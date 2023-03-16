@@ -1,60 +1,79 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import axios from 'axios';
 
 function AddDoctors({ doctors, setDoctors, setIsAdding }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('');
+  const [org, setOrg] = useState('');
+  const [speciality, setSpeciality] = useState('');
+  const [qualification, setQualification] = useState('');
+  const [experience, setExperience] = useState('');
+  const [phoneNo, setPhoneNo] = useState('');
+  const [personalAddress, setPersonalAddress] = useState('');
 
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [age, setAge] = useState('');
-    const [org, setOrg] = useState('');
-    const [speciality, setSpeciality] = useState('');
-    const [qualification, setQualification] = useState('');
-    const [experience, setExperience] = useState('');
-    const [phoneNo, setPhoneNo] = useState('');
-    const [personalAddress, setPersonalAddress] = useState('');
+  const textInput = useRef(null);
 
-    const textInput = useRef(null);
+  useEffect(() => {
+    textInput.current.focus();
+  }, []);
 
-    useEffect(() => {
-        textInput.current.focus();
-    }, [])
-
-    const handleAdd = e => {
-        e.preventDefault();
-        if (!firstName || !lastName || !age || !org ||!speciality||!qualification||!experience||!phoneNo || !personalAddress) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'All fields are required.',
-                showConfirmButton: true
-            });
-        }
-
-        const id = doctors.length + 1;
-        const newDoctor = {
-            id,
-            firstName,
-            lastName,
-            age,
-            org,
-            speciality,
-            qualification,
-            experience,
-            phoneNo,
-            personalAddress
-        }
-        doctors.push(newDoctor);
-        setDoctors(doctors);
-        setIsAdding(false);
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Added!',
-            text: `${firstName}'s data has been Added.`,
-            showConfirmButton: false,
-            timer: 1500
-        });
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    if (
+      !firstName ||
+      !lastName ||
+      !age ||
+      !org ||
+      !speciality ||
+      !qualification ||
+      !experience ||
+      !phoneNo ||
+      !personalAddress
+    ) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'All fields are required.',
+        showConfirmButton: true,
+      });
     }
+
+    try {
+      const response = await axios.post('/api/doctors', {
+        firstName,
+        lastName,
+        age,
+        org,
+        speciality,
+        qualification,
+        experience,
+        phoneNo,
+        personalAddress,
+      });
+
+      const newDoctor = response.data;
+      setDoctors([...doctors, newDoctor]);
+      setIsAdding(false);
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Added!',
+        text: `${firstName}'s data has been Added.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } catch (error) {
+      console.error(error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'Failed to add the doctor. Please try again later.',
+        showConfirmButton: true,
+      });
+    }
+  };
 
 
     return (

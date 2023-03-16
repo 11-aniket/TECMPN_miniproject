@@ -1,6 +1,89 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2';
 
+// import React, { useState } from 'react';
+// import Swal from 'sweetalert2';
+// import { Doctor } from './types';
+
+// type Props = {
+//   doctors: Doctor[];
+//   selectedDoctor: Doctor;
+//   setDoctors: (doctors: Doctor[]) => void;
+//   setIsEditing: (isEditing: boolean) => void;
+// };
+
+// const EditDoctors: React.FC<Props> = ({
+//   doctors,
+//   selectedDoctor,
+//   setDoctors,
+//   setIsEditing,
+// }) => {
+//   const id = selectedDoctor.id;
+
+//   const [firstName, setFirstName] = useState(selectedDoctor.firstName);
+//   const [lastName, setLastName] = useState(selectedDoctor.lastName);
+//   const [age, setAge] = useState(selectedDoctor.age);
+//   const [org, setOrg] = useState(selectedDoctor.org);
+//   const [speciality, setSpeciality] = useState(selectedDoctor.speciality);
+//   const [qualification, setQualification] = useState(
+//     selectedDoctor.qualification
+//   );
+//   const [experience, setExperience] = useState(selectedDoctor.experience);
+//   const [phoneNo, setPhoneNo] = useState(selectedDoctor.phoneNo);
+//   const [personalAddress, setPersonalAddress] = useState(
+//     selectedDoctor.personalAddress
+//   );
+
+//   const handleUpdate = (e: React.FormEvent) => {
+//     e.preventDefault();
+
+//     if (
+//       !firstName ||
+//       !lastName ||
+//       !age ||
+//       !org ||
+//       !speciality ||
+//       !qualification ||
+//       !experience ||
+//       !phoneNo ||
+//       !personalAddress
+//     ) {
+//       return Swal.fire({
+//         icon: 'error',
+//         title: 'Error!',
+//         text: 'All fields are required.',
+//         showConfirmButton: true,
+//       });
+//     }
+
+//     const doctor: Doctor = {
+//       id,
+//       firstName,
+//       lastName,
+//       age,
+//       org,
+//       speciality,
+//       qualification,
+//       experience,
+//       phoneNo,
+//       personalAddress,
+//     };
+
+//     const updatedDoctors = doctors.map((d) => (d.id === id ? doctor : d));
+
+//     setDoctors(updatedDoctors);
+//     setIsEditing(false);
+
+//     Swal.fire({
+//       icon: 'success',
+//       title: 'Updated!',
+//       text: `${doctor.firstName} ${doctor.lastName}'s data has been updated.`,
+//       showConfirmButton: false,
+//       timer: 1500,
+//     });
+//   };
+
+
 function EditDoctors({ doctors, selectedDoctor, setDoctors, setIsEditing }) {
 
     const id = selectedDoctor.id;

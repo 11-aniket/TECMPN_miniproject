@@ -27,7 +27,6 @@ function DrNavbar() {
   let Links = [
     { name: 'Profile', link: '/drhome' },
     { name: 'Orphans Details', link: '/orphanUMe' },
-    { name: 'Edit Orphan', link: '/editOrphan' }
   ];
 
   return (

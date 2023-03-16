@@ -1,60 +1,126 @@
-import React, { useState } from 'react'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
 
-function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
+const EditOrphans = () => {
+  const { id } = useParams();
+  const [orphan, setOrphan] = useState({});
+  const [name, setName] = useState('');
+  const [gender, setGender] = useState('');
+  const [dob, setDob] = useState('');
+  const [yearOfEnroll, setYearOfEnroll] = useState('');
+  const [isAdopted, setIsAdopted] = useState('');
+  const [org, setOrg] = useState('');
+  const [background, setBackground] = useState('');
 
-    const id = selectedOrphan.id;
-    const [name, setName] = useState(selectedOrphan.name);
-    const [gender, setGender] = useState(selectedOrphan.gender);
-    const [dob, setDob] = useState(selectedOrphan.dob);
-    const [yearOfEnroll, setYearOfEnroll] = useState(selectedOrphan.yearOfEnroll);
-    const [isAdopted, setIsAdopted] = useState(selectedOrphan.isAdopted);
-    const [org, setOrg] = useState(selectedOrphan.setOrg);
-    const [background, setBackground] = useState(selectedOrphan.setBackground);
+  useEffect(() => {
+    fetchOrphan();
+  }, []);
 
-    const handleUpdate = e => {
-        e.preventDefault();
+  const fetchOrphan = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:8000/channels/oms/chaincodes/orphanage/admin-read-orphan?` + new URLSearchParams({
+        orphanId: id,
+      }), {
+        method: 'GET',
+        headers: {
+          'Cache-Control': 'no-cache',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data);
+        setOrphan(data);
+        setName(data.result.name);
+        setGender(data.result.gender);
+        setDob(data.result.dob);
+        console.log(dob);
+        setYearOfEnroll(data.result.yearOfEnroll);
+        setIsAdopted(data.result.isAdopted);
+        setOrg(data.result.org);
+        setBackground(data.result.background);
+      }
+    } catch (error) {
+      console.error(error);
+      alert('API request failed', error);
+    }
+  };
 
-        if (!name ||!gender || !dob ||!yearOfEnroll||!isAdopted ||!org||!background) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Error!',
-                text: 'All fields are required.',
-                showConfirmButton: true
-            });
-        }
+  const handleUpdate = async (e) => {
+    e.preventDefault();
 
-        const orphan = {
-            id,
-            name,
-            gender,
-            dob,
-            yearOfEnroll,
-            isAdopted,
-            org,
-            background
-        };
+    if (!name || !gender || !dob || !yearOfEnroll || !isAdopted || !org || !background) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: 'All fields are required.',
+        showConfirmButton: true,
+      });
+    }
 
-        for (let i = 0; i < orphans.length; i++) {
-            if (orphans[i].id === id) {
-                orphans.splice(i, 1, orphan);
-                break;
-            }
-        }
-
-        setOrphans(orphans);
-        setIsEditing(false);
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Updated!',
-            text: `${orphan.name}'s data has been updated.`,
-            showConfirmButton: false,
-            timer: 1500
-        });
+    const orphan = {
+      id,
+      name,
+      gender,
+      dob,
+      yearOfEnroll,
+      isAdopted,
+      org,
+      background,
     };
 
-    return (
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        return Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'You are not authorized to perform this action.',
+          showConfirmButton: true,
+        });
+      }
+
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+
+      const body = {
+        args: orphan,
+        orphanId: id,
+      };
+
+      const response = await axios.post(
+        'http://localhost:8000/channels/oms/chaincodes/orphanage/admin-update-orphan',
+        body,
+        config
+      );
+
+      if (response.data.success) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Updated!',
+          text: `${orphan.name}'s information has been updated successfully.`,
+          showConfirmButton: true,
+        });
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: 'Unable to update orphan information.',
+          showConfirmButton: true,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      alert('API request failed', error);
+    }
+  };
+
+  return (
         <div className="small-container">
             <form onSubmit={handleUpdate}>
                 <h1>Edit Orphan</h1>
@@ -122,7 +188,7 @@ function EditOrphans({ orphans, selectedOrphan, setOrphans, setIsEditing }) {
                         className="muted-button"
                         type="button"
                         value="Cancel"
-                        onClick={() => setIsEditing(false)}
+                        // onClick={() => setIsEditing(false)}
                     />
                 </div>
             </form>

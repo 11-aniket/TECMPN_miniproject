@@ -24,24 +24,42 @@ function DoctorDashboard() {
 
     const handleDelete = (id) => {
         Swal.fire({
-            icon: 'warning',
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            showCancelButton: true,
-            confirmButtonText: 'Yes, delete it!',
-            cancelButtonText: 'No, cancel!',
+          icon: 'warning',
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
         }).then(result => {
-            if (result.value) {
+          if (result.value) {
+            fetch(`https://example.com/doctors/${id}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            })
+            .then(response => {
+              if (response.ok) {
                 const [doctor] = doctors.filter(doctor => doctor.id === id);
-
                 Swal.fire({
-                    icon: 'success',
-                    title: 'Deleted!',
-                    text: `${doctor.name}'s data has been deleted.`,
-                    showConfirmButton: false,
-                    timer: 1500,
+                  icon: 'success',
+                  title: 'Deleted!',
+                  text: `${doctor.name}'s data has been deleted.`,
+                  showConfirmButton: false,
+                  timer: 1500,
                 });
-
+                setDoctors(doctors.filter(doctor => doctor.id !== id));
+              } else {
+                throw new Error('Something went wrong');
+              }
+            })
+            .catch(error => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.message
+              });
+            });
                 setDoctors(doctors.filter(doctor => doctor.id !== id));
             }
         });

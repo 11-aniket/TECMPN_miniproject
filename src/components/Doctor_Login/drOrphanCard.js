@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const OrphanCard = ({ id, name, age, organization, allergies, prev_diagnosis, prev_treatment, prev_disfigurements }) => {
   return (
@@ -30,9 +31,9 @@ const OrphanCard = ({ id, name, age, organization, allergies, prev_diagnosis, pr
           </tbody>
         </table>
       </div>
-      <button className="bg-green-500 w-11/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
+      <Link to={`/dreditOrphan/${id}`} className="bg-green-500 w-11/12 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mt-4">
         Edit
-      </button>
+      </Link>
     </div>
   );
 };
