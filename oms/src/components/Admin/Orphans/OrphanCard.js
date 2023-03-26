@@ -6,7 +6,9 @@ const OrphanCard = ({orphanData}) => {
     <>
       <section className=''>
         {orphanData.map ((curElem) =>{
-          const {id,number,name,image, year_of_enroll,dateOfBirth,adoption_status } = curElem;
+          const {id, number, name, image, year_of_enroll, dateOfBirth, adoption_status, aadhaarHash, birthCertHash} = curElem;
+          const isAadhaarPending = !aadhaarHash;
+          const isBirthCertPending = !birthCertHash;
           return (
             <div className='h-auto border-solid border-2 border-black m-2 w-full' key={id.toString()}>
               <div className='p-4 flex'>
@@ -19,7 +21,12 @@ const OrphanCard = ({orphanData}) => {
                   <h2 className='mt-8'> <span className='font-bold text-lg'>Name : </span> {name}</h2>
                   <h2 className='py-1'><span className='font-bold text-lg'>Date of Birth : </span>{dateOfBirth}</h2>
                   <h2 className='py-1'><span className='font-bold text-lg'>Year of Enrollment : </span>{year_of_enroll}</h2>
-                  <Link to={`/orphan/${id}`} className='border-solid border-2 border-black bg-slate-400 my-1 cursor-pointer hover:underline hover:font-bold px-2'>More Details</Link>
+                  <Link to={`/orphan/${id}`} className='  border-solid border-2 border-black bg-slate-400 mr cursor-pointer hover:underline hover:font-bold px-2 text-white font-bold'>
+                    More Details
+                  </Link>
+                  {isAadhaarPending && isBirthCertPending && <p className="text-red-500"><strong>*</strong>Please upload Aadhaar card and birth certificate</p>}
+                  {isAadhaarPending && !isBirthCertPending && <p className="text-red-500"><strong>*</strong>Please upload Aadhaar card</p>}
+                  {!isAadhaarPending && isBirthCertPending && <p className="text-red-500"><strong>*</strong>Please upload birth certificate</p>}
                 </div>
               </div>
             </div>

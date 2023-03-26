@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useParams} from "react-router-dom";
 
 function DrOrphanEditor() {
+  const { id } = useParams();
   const [basicDetails, setBasicDetails] = useState({
     id: "",
     name: "",
     gender: "",
     dob: "",
+    org: ""
   });
 
   const [medicalDetails, setMedicalDetails] = useState({
@@ -17,7 +19,7 @@ function DrOrphanEditor() {
     disfigurements: "",
   });
 
-  const [orphanId, setOrphanId] = useState("ORP4");
+  const [orphanId, setOrphanId] = useState("");
 
   useEffect(() => {
     getOrphanDetails();
@@ -25,23 +27,26 @@ function DrOrphanEditor() {
 
   const getOrphanDetails = async () => {
     try {
-      const response = await axios.post(
-        "http://localhost:8000/channels/oms/chaincodes/doctor/doctor-read-orphan",
-        {
-          args: {
-            orphanId: orphanId,
-          },
-        }
-      );
-      const orphanData = response.data;
-
+      console.log("getOrphanDetials called....")
+      console.log(id);
+      const token = localStorage.getItem("token"); 
+      const config = {
+       headers : {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    };
+      const response = await axios.get(
+        `http://localhost:8000/channels/oms/chaincodes/doctor/doctor-read-orphan?orphanId=${id}`, config );
+      console.log(response.data.result);
+      const orphanData = response.data.result;
       setBasicDetails({
         id: orphanData.id,
         name: orphanData.name,
         gender: orphanData.gender,
         dob: orphanData.dob,
       });
-
+  
       setMedicalDetails({
         allergies: orphanData.allergies[0],
         diagnosis: orphanData.diagnosis[0],
@@ -51,7 +56,7 @@ function DrOrphanEditor() {
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   const handleMedicalDetailsChange = (event) => {
     setMedicalDetails({

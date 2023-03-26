@@ -6,7 +6,6 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
     const [gender, setGender] = useState('');
     const [dob, setDob] = useState('');
     const [yearOfEnroll, setYearOfEnroll] = useState('');
-    const [isAdopted, setIsAdopted] = useState('');
     const [org, setOrg] = useState('');
     const [background, setBackground] = useState('');
 
@@ -18,7 +17,7 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
 
     const handleAdd = e => {
       e.preventDefault();
-      if (!name || !gender || !dob || !yearOfEnroll || !isAdopted || !org || !background) {
+      if (!name || !gender || !dob || !yearOfEnroll || !org || !background) {
         return Swal.fire({
           icon: 'error',
           title: 'Error!',
@@ -36,7 +35,6 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
           gender: gender,
           dob: dob,
           yearOfEnroll: parseInt(yearOfEnroll),
-          isAdopted: (isAdopted === 'true') ? "true" : "false",
           org: org,
           background: background
         }
@@ -57,7 +55,7 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
           const updatedOrphans = [...orphans, result];
           setOrphans(updatedOrphans);
           setIsAdding(false);
-    
+          Swal.close(); // Close any open message before showing success message
           Swal.fire({
             icon: 'success',
             title: 'Added!',
@@ -75,13 +73,14 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
             showConfirmButton: true
           });
         });
-    }      
+    };
+    
 
     return (
         <div >
-            <form className='small-container' onSubmit={handleAdd}>
-                <h1 className='flex  h-14  flex-wrap md:justify-between justify-between  fixed  top-0 z-10  border-gray-200 px-2  text-xl font-semibold  whitespace-nowrap dark:text-white cursor-pointer bg-gray-900 text-white w-full'>Add Orphan</h1>
-                <label className='mt-20' htmlFor="name"> Name </label>
+            <form className='small-container border-2 border-black' onSubmit={handleAdd}>
+                <h1 className='flex h-14 mt-2  w-full bg-gray-800 text-white font-bold justify-center items-center'>Add Orphan</h1>
+                <label className='mt-10 ' htmlFor="name"> Name </label>
                 <input
                     id="name"
                     type="text"
@@ -115,30 +114,6 @@ function AddOrphans({ orphans, setOrphans, setIsAdding }) {
                     value={yearOfEnroll}
                     onChange={e => setYearOfEnroll(e.target.value)}
                     />
-                <label htmlFor="isAdopted">Is Adopted</label>
-                  <div className='flex'>
-                      <label>
-                          <input
-                              type="radio"
-                              name="isAdopted"
-                              value="true"
-                              checked={isAdopted === 'true'}
-                              onChange={e => setIsAdopted(e.target.value)}
-                          />
-                          Yes
-                      </label>
-                      <label style={{ marginLeft: '10px' }}>
-                          <input
-                              type="radio"
-                              name="isAdopted"
-                              value="false"
-                              checked={isAdopted === 'false'}
-                              onChange={e => setIsAdopted(e.target.value)}
-                          />
-                          No
-                      </label>
-                  </div>
-
                 <label htmlFor="org">Organisation</label>
                 <input
                     id="org"

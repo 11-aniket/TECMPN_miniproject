@@ -39,32 +39,47 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
         showConfirmButton: true,
       });
     }
+    const drapiUrl = 'http://localhost:8000/channels/oms/chaincodes/orphanage/admin-create-doctor';
+    const token = localStorage.getItem('token');
 
-    try {
-      const response = await axios.post('/api/doctors', {
-        firstName,
-        lastName,
-        age,
-        org,
-        speciality,
-        qualification,
-        experience,
-        phoneNo,
-        personalAddress,
-      });
+   const data = {
+      args: {
+        firstName: firstName,
+        lastName: lastName,
+        age: age,
+        org : org,
+        speciality : speciality,
+        qualification : qualification,
+        experience : experience,
+        phoneNo : phoneNo,
+        personalAddress: personalAddress,
+      }
+    };
 
-      const newDoctor = response.data;
-      setDoctors([...doctors, newDoctor]);
+    fetch(drapiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(result => {
+      console.log("Result ",result);
+      const newDoctor = [...doctors, result];
+      setDoctors(newDoctor);
       setIsAdding(false);
-
-      Swal.fire({
-        icon: 'success',
-        title: 'Added!',
-        text: `${firstName}'s data has been Added.`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
-    } catch (error) {
+          Swal.close(); // Close any open message before showing success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Added!',
+            text: `${result.name}'s data has been added.`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+        })
+    .catch (error => {
       console.error(error);
       Swal.fire({
         icon: 'error',
@@ -72,7 +87,7 @@ function AddDoctors({ doctors, setDoctors, setIsAdding }) {
         text: 'Failed to add the doctor. Please try again later.',
         showConfirmButton: true,
       });
-    }
+    });
   };
 
 

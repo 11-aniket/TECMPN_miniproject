@@ -9,7 +9,7 @@ import axios from 'axios';
 const fetchDoctors = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-doctor-org',{
+    const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-doctor',{
       headers: {
         Authorization: `Bearer ${token}` // Pass the token as an authorization header
       }
@@ -53,9 +53,6 @@ const Doctor_Details = () => {
         <div className=' py-3 font-bold sm: text-sm md:text-base flex absolute right-[2%]'>
                 <TiUserAdd className='w-9 h-7 -mt-1'/>
                 <Link className='ml-1 mr-8' to="../AddDoctors">Add New Doctor</Link>
-
-                <TiUserDelete className='w-8 h-7 -mt-1'/>
-                <Link className='ml-1' to="../DoctorDashboard">Delete Doctor</Link>
             </div>
         <div className=' sm:pt-10 md:pt-0 absolute left-6 top-16 w-11/12'>
             < DoctorCard doctorData={doctorData} />

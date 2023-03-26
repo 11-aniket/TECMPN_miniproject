@@ -38,18 +38,12 @@ const SignIn = () => {
         }
       })
       .catch((error) => {
+        alert("Username or password Incorrect!!!");
         console.log(error);
       });
       const token = localStorage.getItem('token');
 
-      // axios.get("",{
-      //  headers:{
-      //     'Authorization' : `Bearer ${token}`
-      //   }  
-      // })
-      //  .then(res=>{
-       
-      //  })
+
       
   };
   const [username, setUserName] = useState("");

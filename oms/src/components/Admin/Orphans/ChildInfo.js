@@ -3,22 +3,40 @@ import Sidenav from '../SideNav';
 import Orphannavbar from './OrphanNavbar';
 import OrphanCard from './OrphanCard';
 import { Link } from 'react-router-dom';
-import { TiUserAdd, TiUserDelete } from 'react-icons/ti';
+import { TiUserAdd } from 'react-icons/ti';
+import { GrUpdate} from 'react-icons/gr';
+import jwt_decode from "jwt-decode";
+import ForbiddenPage from '../../Pages/ForbiddenPage'
 
 const OrphanDetails = () => {
     const [orphanData, setOrphanData] = useState([]);
     const [orphanlist, setOrphanlist] = useState(['All', 'Adopted', 'Unadopted']);
     const [selectedOption, setSelectedOption] = useState('All');
     const [originalData, setOriginalData] = useState([]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
   
     const fetchOrphans = async () => {
       try {
         const token = localStorage.getItem('token');
+        if (!token) {
+          alert("You need to be logged in First !!!! ");
+          window.location = '/signin';
+        }
+        const decoded = jwt_decode(token);
+        if (decoded.token.role === "Admin") {
+          setIsAuthenticated(true);
+        }
+        else if(decoded.token.role !== "Admin"){
+          setIsAuthenticated(false);
+          alert("You Don't have Access to this page !!!! ");
+          window.location = '/drhome';
+        }
         const response = await fetch('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-orphan', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        if(response.status === 200) {
         const data = await response.json();
         const orphansArray = data.result.map((orphan,index) => ({
           id: orphan.id,
@@ -28,13 +46,16 @@ const OrphanDetails = () => {
           age: orphan.age,
           gender: orphan.gender,
           dateOfBirth: orphan.dob,
-          adoption_status: (orphan.isAdopted == true ) ? 'Adopted' : 'Unadopted',// later remove this part of the code " || index % 2 == 0"
+          adoption_status: (orphan.isAdopted == true ) ? 'Adopted' : 'Unadopted',
           year_of_enroll: orphan.yearOfEnroll,
           background: orphan.background,
           permissionGranted: orphan.permissionGranted,
+          aadhaarHash:orphan.aadhaarHash,
+          birthCertHash:orphan.birthCertHash,
         }));
         setOrphanData(orphansArray);
         setOriginalData(orphansArray);
+      }
       } catch (error) {
         console.error(error);
       }
@@ -67,6 +88,10 @@ const OrphanDetails = () => {
         window.onpopstate = null;
       };
     }, []);
+
+    if (!isAuthenticated) {
+      return <ForbiddenPage /> ;
+    }
   
     return (
       <>
@@ -78,9 +103,9 @@ const OrphanDetails = () => {
             <Link className='ml-1 mr-8' to='../AddOrphans'>
               Add New Orphan
             </Link>
-            <TiUserDelete className='w-8 h-7 -mt-1' />
-            <Link className='ml-1' to='../OrphanDashboard'>
-              Delete Orphan
+            <GrUpdate className='w-8 h-8-mt-1' />
+            <Link className='ml-1 mr-8 ' to='../OrphanDashboard'>
+              Update
             </Link>
           </div>
           <Orphannavbar filterItem={filterItem} orphanlist={orphanlist} />

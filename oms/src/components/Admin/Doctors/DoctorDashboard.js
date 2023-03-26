@@ -1,19 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Swal from 'sweetalert2';
-
+import axios from 'axios';
 import HeaderDoctors from './HeaderDoctors';
 import ListDoctors from './ListDoctors';
 import AddDoctors from './AddDoctors';
 import EditDoctors from './EditDoctors';
 
-import doctorsData from "../Api/doctorsData"
-
 function DoctorDashboard() {
 
-    const [doctors, setDoctors] = useState(doctorsData);
+    const [doctors, setDoctors] = useState([]);
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const [isAdding, setIsAdding] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+    const token = localStorage.getItem('token');
+    axios
+      .get(
+        'http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-doctor',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setDoctors(response.data.result);
+        console.log('Orphans data: ', response.data.result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
     const handleEdit = (id) => {
         const [doctor] = doctors.filter(doctor=> doctor.id === id);
@@ -23,83 +41,71 @@ function DoctorDashboard() {
     }
 
     const handleDelete = (id) => {
-        Swal.fire({
-          icon: 'warning',
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          showCancelButton: true,
-          confirmButtonText: 'Yes, delete it!',
-          cancelButtonText: 'No, cancel!',
-        }).then(result => {
-          if (result.value) {
-            fetch(`https://example.com/doctors/${id}`, {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            })
-            .then(response => {
-              if (response.ok) {
-                const [doctor] = doctors.filter(doctor => doctor.id === id);
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Deleted!',
-                  text: `${doctor.name}'s data has been deleted.`,
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
-                setDoctors(doctors.filter(doctor => doctor.id !== id));
-              } else {
-                throw new Error('Something went wrong');
-              }
-            })
-            .catch(error => {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.message
-              });
-            });
-                setDoctors(doctors.filter(doctor => doctor.id !== id));
-            }
-        });
-    }
-
+      Swal.fire({
+        icon: 'warning',
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+      }).then((result) => {
+        if (result.value) {
+          const drToDelete = doctors.find((doctor) => doctor.id === id);
+          console.log(drToDelete);
+          const updatedDrs = doctors.filter((doctor) => doctor.id !== id);
+          setDoctors(updatedDrs);
+          Swal.fire({
+            icon: 'success',
+            title: 'Deleted!',
+            text: `${drToDelete.firstName}'s data has been deleted.`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
+    };
 
     return (
-        <div className='container'>
-            {/* List */}
-            {!isAdding && !isEditing && (
-                <>
-                    <HeaderDoctors
-                        setIsAdding={setIsAdding}
-                    />
-                    <ListDoctors
-                        doctors={doctors}
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                    />
-                </>
-            )}
-            {/* Add */}
+      <div className='container'>
+        {/* List */}
+        {!isAdding && !isEditing && (
+          <>
+            <HeaderDoctors setIsAdding={setIsAdding} />
+            <ListDoctors
+              doctors={doctors}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          </>
+        )}
+        {/* Add or Edit */}
+        {(isAdding || isEditing) && (
+          <>
             {isAdding && (
-                <AddDoctors
-                    doctors={doctors}
-                    setDoctors={setDoctors}
-                    setIsAdding={setIsAdding}
-                />
+              <AddDoctors
+                doctors={doctors}
+                setDoctors={setDoctors}
+                setIsAdding={setIsAdding}
+              />
             )}
-            {/* Edit */}
             {isEditing && (
-                <EditDoctors
-                    doctors={doctors}
-                    selectedDoctor={selectedDoctor}
-                    setDoctors={setDoctors}
-                    setIsEditing={setIsEditing}
-                />
+              <EditDoctors
+                doctors={doctors}
+                selectedDoctor={selectedDoctor}
+                setDoctors={setDoctors}
+                setIsEditing={setIsEditing}
+              />
             )}
-        </div>
-    )
+            <ListDoctors
+              doctors={doctors}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          </>
+        )}
+      </div>
+    );
+    
 }
 
 export default DoctorDashboard;

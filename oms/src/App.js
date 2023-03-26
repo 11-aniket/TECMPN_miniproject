@@ -40,15 +40,15 @@ import ViewOrphan from './components/Parent_Login/ViewOrphan'
 import DrProfile from './components/Doctor_Login/DrProfile';
 import OrphanUMe from './components/Doctor_Login/OrphanUMe';
 import EditPage from './components/Doctor_Login/EditPage';
-import OrphanDetail from './components/Admin/Orphans/OrphanDetail';
+
+import OrphanDetail from './components/Admin/Orphans/MoreDetailsPage';
 import DrOrphanEditor from './components/Doctor_Login/EditPage';
-import ForbiddenPage from './components/Pages/ForbiddenPage';
 
 function App() {
   return (
    <> 
     <Routes>
-      <Route path = "/" element={<Home/>} />
+       <Route path = "/" element={<Home/>} /> 
       <Route path="/signin" element={<SignIn/>} />
       <Route path="/signup" element={<SignUp/>} />
       <Route path="/contactus" element={<ContactUs/>} />
@@ -67,17 +67,16 @@ function App() {
       <Route path="/AddMission" element={<AddMission/>}/>
       <Route path="/AddNewsletter" element={<AddNewsletter/>}/>
       <Route path="/editOrphan/:id" element={ <EditOrphans />}/>
+      <Route path="/AddDoctors" element={<AddDoctors/>}/>
+      <Route path='/orphanUMe' element={<OrphanUMe />} />
+      <Route path="/ListDoctors" element={<ListDoctors/>}/>
+      <Route path="/dreditOrphan/:id" element={ <DrOrphanEditor />}/>
+      <Route path="/HeaderDoctors" element={<HeaderDoctors/>}/>
+      <Route path="/DoctorDashboard" element={<DoctorDashboard/>}/>
       
       {/* Doctor pages */}
       <Route path='/drhome' element={< DrProfile />} />
       <Route path='/drprofile' element={< DrProfile />} />
-      <Route path='/orphanUMe' element={<OrphanUMe />} />
-      <Route path="/AddDoctors" element={<AddDoctors/>}/>
-      <Route path="/ListDoctors" element={<ListDoctors/>}/>
-      <Route path="/EditDoctors" element={<EditDoctors/>}/>
-      <Route path="/dreditOrphan/:id" element={ <DrOrphanEditor />}/>
-      <Route path="/HeaderDoctors" element={<HeaderDoctors/>}/>
-      <Route path="/DoctorDashboard" element={<DoctorDashboard/>}/>
       <Route path="/orphan/:id" element={<OrphanDetail/>} /> 
 
       {/* Parent pages */}
@@ -106,7 +105,6 @@ function App() {
 
 
       <Route path="/edit"element={<EditPage/>}/>
-      <Route path="/ForbiddenPage" element={<ForbiddenPage/>}/>
 
     </Routes>
    </>

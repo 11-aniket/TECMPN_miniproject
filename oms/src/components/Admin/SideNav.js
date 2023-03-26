@@ -11,7 +11,7 @@ function Sidenav() {
     { name: "News Letter", link: "/newsletter" },
     { name: "Feedback", link: "/feedback" },
     { name: "Doctors", link: "/doctors" },
-    { name: "Parents", link: "/parent_details" },
+    { name: "Parents", link: "/Beparent" },
     
   ];
   const [open, setOpen] = useState(false);
@@ -33,7 +33,7 @@ function Sidenav() {
 
   return (
     <>
-      <nav className=" fixed  top-0 z-10 w-screen text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 ">
+      <nav className=" fixed  top-0 z-100 w-screen text-white border-gray-200 px-2 sm:px-4 py-2.5 bg-gray-900 ">
         <div className="flex  mr-3 h-6 sm:h-9  flex-wrap md:justify-between justify-between mx-auto">
           <Link to='/admin' className=" text-xl font-semibold  whitespace-nowrap dark:text-white cursor-pointer">Orphanage Foundation Center</Link>
         </div>
@@ -48,7 +48,7 @@ function Sidenav() {
           <ul className='space-y-3'>
             <h1 className='w-56 p-2 border-4 border-black hover:border-solid hover:border-2 hover:border-gray-500  md:m-2 text-lg md:pr-8 '>Welcome, {username}</h1>
             {Links.map((link) => (
-              <li key={link.name} className='w-56 pr-2 pb-2 pt-2 border-t-2 border-r-4 border-b-4 border-black hover:border-solid hover:border-2 hover:border-gray-500  md:m-2 text-xl md:pr-8 '>
+              <li key={link.name} className='w-56 p-2 border-t-2 border-r-4 border-b-4 border-black hover:border-solid hover:border-2 hover:border-gray-500  md:m-2 text-xl md:pr-8 '>
                 <Link to={link.link}>{link.name}</Link>
               </li>
             ))}
@@ -60,7 +60,7 @@ function Sidenav() {
           </button>
         </div>
         </div>
-        <div class="left-56 h-full  w-0.5 bg-slate-500 fixed"></div>
+        <div class="left-56 h-full top-14 w-0.5 bg-slate-500 fixed"></div>
       </sidenav>
     </>
   )

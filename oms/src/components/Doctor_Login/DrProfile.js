@@ -2,45 +2,67 @@ import React, { useState, useEffect } from 'react';
 import DrNavbar from './DrNavbar';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
+import ForbiddenPage from '../Pages/ForbiddenPage'
 
 const DrProfile = () => {
   const [doctorData, setDoctorData] = useState({});
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    if (!token) {
+      alert("You need to be logged in First !!!! ");
+      window.location = '/signin';
+    }
     const decoded = jwt_decode(token);
     if (decoded.token.role === "Doctor") {
       setIsAuthenticated(true);
+      setIsLoading(true);
     }
-
+    else if (decoded.token.role !== "Doctor") {
+      setIsAuthenticated(false);
+      alert("You Don't have Access to this page !!!! ");
+      window.location = '/admin';
+    }
+    console.log(decoded.token.username);
     const fetchData = async () => {
       try {
         const headers = {
           'Authorization': `Bearer ${token}`
         };
-        const response = await axios.get('http://localhost:8000/channels/oms/chaincodes/orphanage/admin-queryall-doctor', { headers });
-        const doctors = response.data;
-        const filteredDoctor = doctors.filter((doctor) => doctor.id === decoded.token.id);
-        setDoctorData(filteredDoctor[0]);
-        console.log(filteredDoctor[0]);
+        const response = await axios.get(`http://localhost:8000/channels/oms/chaincodes/doctor/doctor-read-doctor?doctorId=${decoded.token.username}`, { headers });
+        const doctorData = response.data;
+        setDoctorData(doctorData.result);
+        console.log(doctorData);
       } catch (error) {
         console.error(error);
       }
       setIsLoading(false);
     };
-
+  
     fetchData();
   }, []);
-
+  
   if (isLoading) {
     return <div>Loading...</div>;
+    // {isLoading ? (
+    //   <div>
+    //     <p className="text-3xl ml-20 text-black fixed top-28">
+    //       Loading orphan details...
+    //     </p>
+    //     <div className="content-center">
+    //       <FontAwesomeIcon
+    //         icon={faCircleNotch}
+    //         spin
+    //         className="text-black text-6xl fixed top-24 justify-center"
+    //       />
   }
-
+  
   if (!isAuthenticated) {
-    return <div>Forbidden</div>;
+    return <ForbiddenPage />;
   }
+  
 
   return (
     <div className='bg-gradient-to-r from-indigo-400 to-purple-400 h-screen'>
@@ -55,24 +77,24 @@ const DrProfile = () => {
         alt="Doctor's Profile"
       />
       <div className="mt-6 text-lg ">
-        <h2 className="text-3xl font-bold text-center text-indigo-600">
-          {doctorData.name || 'Dr. John Doe'}
-        </h2>
+      <h2 className="text-3xl font-bold text-center text-indigo-600">
+          {`Dr. ${doctorData.firstName} ${doctorData.lastName}` || 'Dr. John Doe'}
+      </h2>
         <p className="text-gray-800 font-medium mt-2 text-justify"> 
-        Role: {doctorData.specialization || 'Orthopedic Surgeon'}
+        Role: {doctorData.speciality || 'Orthopedic Surgeon'}
         </p>
         <p className="text-gray-800 font-medium text-justify mt-2"> 
-          Organization: {doctorData.organization || 'ABC Hospital'}
+          Organization: {doctorData.org || 'ABC Hospital'}
         </p>
         <p className="text-gray-800 font-medium text-justify mt-2"> 
-          Phone: {doctorData.phone || '(123) 456-7890'}
+          Phone: {doctorData.phoneNo || '(123) 456-7890'}
         </p>
-        <div className="mt-6 text-center">
+        <div className="mt-6 text-center space-y-2">
+          <p className="text-gray-900 mt-2 inline-block bg-gray-200 rounded-full px-3 py-1">
+            Qualification: {doctorData.qualification || 'Hip and Knee Surgery'}
+          </p>
           <p className="text-gray-900 inline-block bg-gray-200 rounded-full px-3 py-1 mr-2">
             Years of Experience: {doctorData.experience || '10'}
-          </p>
-          <p className="text-gray-900 mt-2 inline-block bg-gray-200 rounded-full px-3 py-1">
-            Specialties: {doctorData.specialties || 'Hip and Knee Surgery'}
           </p>
         </div>
       </div>
