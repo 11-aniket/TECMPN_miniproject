@@ -1,3 +1,4 @@
+const hre = require("hardhat");
 
 const main = async () => {
   const Transactions = await hre.ethers.getContractFactory("Transactions");
@@ -7,7 +8,6 @@ const main = async () => {
 
   console.log("Transactions deployed to : ", transactions.address);
 }
-
 
 const runMain = async ( )=> {
   try{
